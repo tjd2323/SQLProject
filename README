@@ -1,1 +1,27 @@
-README
+Things to do:
+DDL:
+Make tables
+Insertions
+Constraints
+DML:
+At least 3 triggers (when appointment passes, reschedule, cancel)
+At least 3 stored procedures (databroker query request, user report, business report)
+2-3 log tables (users, businesses, data brokers)
+5 total roles (db admin (all permissions), db worker (insert/delete/update permissions, can’t drop tables), specialized user (thinking data broker here, specialized views), user (user view) permission and specific insert/deletes on appointments, business (business view) with specific insert/delete permissions on appointments)
+3 or so views (data broker view, business view, user view)
+2 cursors (going through appointments for user, going through clients for business)
+1 index (on appointments maybe, or maybe on businesses)
+2+ constraints (allowable user/ businesses, allowable queries for data brokers)
+
+Documentation:
+Need to make database work as described in System design documentation
+user interface design diagrams (4, since 4 types of users)
+For attributes:
+Proposed domain (enforced via check clause and trigger as appropriate)
+Description
+Additional constraints
+Data types
+Table descriptions
+Additional constraints for tables
+Referential integrity (cascade, etc)
+
