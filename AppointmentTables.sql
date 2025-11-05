@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS Generic_Account;
    receiver int,
    body varchar(10000),
    send_at timestamp,
-   primary key(message_id, sender, receiver),
+   primary key(message_id),
    foreign key(sender) references Generic_Account(Account_id) on delete cascade on update cascade,
    foreign key(receiver) references Generic_Account(Account_id) on delete cascade on update cascade);
    
