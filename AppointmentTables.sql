@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS Generic_Account;
    decision_status char(30) check (decision_status in ('approved', 'denied', 'in review')) default 'in review',
    decision_time timestamp,
    reviewer_notes varchar(10000),
-   primary key(ver_id, account_id),
+   primary key(ver_id),
    foreign key(account_id) references buisness_profile(account_id) on delete cascade on update cascade);
    
    create table Reviews
@@ -124,3 +124,4 @@ DROP TABLE IF EXISTS Generic_Account;
     periood_end timestamp,
     primary key(report_id),
     foreign key(account_id) references Buisness_profile(account_id) on delete cascade on update cascade);
+    
