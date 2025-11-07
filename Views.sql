@@ -19,7 +19,7 @@ LEFT JOIN Appointment ap
   ON ap.account_id = u.Account_id
 LEFT JOIN Service s
   ON s.service_id = ap.service_id
-WHERE u.Account_type = 'C';   -- C = customer/user
+WHERE u.Account_type = 'C';   
 
 
 -- 2) business view: businesses, their services, and any appointments
@@ -56,4 +56,4 @@ SELECT
 FROM DataBroker_Profile db
 JOIN Generic_Account g
   ON g.Account_id = db.Account_id
-WHERE g.Account_type = 'D';   -- D = data broker
+WHERE g.Account_type = 'D';   
