@@ -1,16 +1,16 @@
 Things to do:
 DDL:
-Make tables
-Insertions
-Constraints
+Make tables (done)
+Insertions (done)
+Constraints (might need more, but we do have these)
 DML:
 At least 3 triggers (when appointment passes, reschedule, cancel)
 At least 3 stored procedures (databroker query request, user report, business report)
 2-3 log tables (users, businesses, data brokers)
-5 total roles (db admin (all permissions), db worker (insert/delete/update permissions, can’t drop tables), specialized user (thinking data broker here, specialized views), user (user view) permission and specific insert/deletes on appointments, business (business view) with specific insert/delete permissions on appointments)
-3 or so views (data broker view, business view, user view)
+5 total roles (db admin (all permissions), db worker (insert/delete/update permissions, can’t drop tables), specialized user (thinking data broker here, specialized views), user (user view) permission and specific insert/deletes on appointments, business (business view) with specific insert/delete permissions on appointments) (done)
+3 or so views (data broker view, business view, user view) (done, might need more)
 2 cursors (going through appointments for user, going through clients for business)
-1 index (on appointments maybe, or maybe on businesses)
+1 index (on appointments maybe, or maybe on businesses) (done)
 2+ constraints (allowable user/ businesses, allowable queries for data brokers)
 
 Documentation:
