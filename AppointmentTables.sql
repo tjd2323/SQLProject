@@ -2,19 +2,6 @@ DROP DATABASE IF EXISTS UABS;
 CREATE DATABASE UABS;
 USE UABS;
 
-DROP TABLE IF EXISTS Buisness_Report;
-DROP TABLE IF EXISTS Availability_Block;
-DROP TABLE IF EXISTS Appointment_Has_Message;
-DROP TABLE IF EXISTS Reviews;
-DROP TABLE IF EXISTS Verification;
-DROP TABLE IF EXISTS Reminder;
-DROP TABLE IF EXISTS Appointment;
-DROP TABLE IF EXISTS Service;
-DROP TABLE IF EXISTS Message;
-DROP TABLE IF EXISTS Buisness_Profile;
-DROP TABLE IF EXISTS DataBroker_Profile;
-DROP TABLE IF EXISTS Generic_Account;
-
   CREATE TABLE Generic_Account
   (Account_id int auto_increment,
    Account_type char(1) not null,
@@ -227,7 +214,7 @@ DROP TABLE IF EXISTS Generic_Account;
     
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (1,  2, 'Purchasing a microwave for new hours',  'completed', false,  '2023-09-16 17:00:00', '2023-09-16 17:30:00', 60);
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (3,  3, 'Negotiating steel product shipment',  'completed', false,  '2023-08-17 10:30:00', '2023-08-17 12:30:00', 600);
-    insert into Appointment(account_id, service_id, notes, appt_status) values (6,  7, 'Purchasing a set of pet toys',  'canceled');
+    insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (6,  7, 'Purchasing a set of pet toys',  'canceled', false, '2023-08-17 10:30:00', '2023-08-17 12:30:00', 15);
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (1,  4, 'Eating out at pub.',  'completed', false,  '2023-09-16 22:00:00', '2023-09-16 23:30:00', 30);
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (5,  8, 'Hiring on new employees',  'completed', false,  '2023-07-25 9:30:00', '2023-07-25 12:30:00', 1200);
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (2,  2, 'Wanting to get more information on different microwaves',  'completed', false,  '2023-10-16 12:00:00', '2023-10-16 12:30:00', 60);
