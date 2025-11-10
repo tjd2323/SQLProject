@@ -39,3 +39,33 @@ BEGIN
 END //
 
 DELIMITER ;  -- Restore default delimiter
+
+-- get total revenue for a buisness in a given time period
+DELIMITER //
+CREATE PROCEDURE GetRevenue(IN Buisness_Id INT, IN startTime timestamp, IN endTime timestamp, OUT mysum Double)
+BEGIN
+DECLARE sum Double DEFAULT 0;
+DECLARE val Double DEFAULT 0;
+DECLARE finished bool default false;
+DECLARE myCursor CURSOR for
+select price from Appointment inner join Service using(service_id) inner join Buisness_profile on(buisness_profile.account_id = servie.account_id)
+WHERE Buisness_Id = service.account_id and Appointment.startTime > startTime and Appointment.startTime < endTime;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished= TRUE;
+    -- Validate input
+    IF BuisnessId not in (select Account_id from Buisness_profile) OR endTime <= startTime THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid buisness or start and end time';
+    END IF;
+
+   Open myCursor;
+   read_loop: LOOP
+   FETCH NEXT FROM mycursor into val;
+   IF finished THEN
+   LEAVE read_loop;
+   END IF;
+   set sum = sum + val;
+   END LOOP;
+   close mycursor;
+   set mysum = sum;
+   end //
+   DELIMITER ;
