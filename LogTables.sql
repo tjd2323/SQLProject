@@ -20,7 +20,7 @@ DELIMITER //
 CREATE TRIGGER audit_Appointment_delete AFTER DELETE ON Appointment
 FOR EACH ROW
 BEGIN
-insert into Appointment_log values (old.appt_id, old.service_id, old.notes, old.app_status, old.no_show, old.start_time, old.end_time, old.cancel_window_min, 'Delete', NOW());
+insert into Appointment_log values (old.appt_id, old.service_id, old.notes, old.appt_status, old.no_show, old.startTime, old.endTime, old.cancel_window_min, 'Delete', NOW());
 END;
 //
 DELIMITER ;
@@ -28,7 +28,7 @@ DELIMITER //
 CREATE TRIGGER audit_Appointment_update AFTER UPDATE ON Appointment
 FOR EACH ROW
 BEGIN
-insert into Appointment_log values (old.appt_id, old.service_id, old.notes, old.app_status, old.no_show, old.start_time, old.end_time, old.cancel_window_min, 'Update', NOW());
+insert into Appointment_log values (old.appt_id, old.service_id, old.notes, old.appt_status, old.no_show, old.startTime, old.endTime, old.cancel_window_min, 'Update', NOW());
 END;
 //
 DELIMITER ;

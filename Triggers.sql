@@ -5,11 +5,11 @@ CREATE TRIGGER after_Buisness_or_Databroker
 AFTER INSERT ON generic_account
 FOR EACH ROW
 BEGIN
-IF new.Account_Typing = 'B' THEN
+IF new.Account_Type = 'B' THEN
 INSERT INTO Buisness_profile(Account_id) values (new.Account_id);
-INSERT INTO Verification(account_id, created_at, decision_status) values (old.Account_id, NOW(), 'in review');
-Insert into Reviews values((Select Account_Id from Account where Account_Typing = 'A' order by RAND() Limit 1), (select Verification_id from Verification inner join BuisnessProfile using(Account_id) where Account_id = new.Account_id));
-ElseIf new.Account_Typing = 'D' THEN
+INSERT INTO Verification(account_id, created_at, decision_status) values (new.Account_id, NOW(), 'in review');
+Insert into Reviews values((Select Account_Id from Account where Account_Type = 'A' order by RAND() Limit 1), (select Verification_id from Verification inner join BuisnessProfile using(Account_id) where Account_id = new.Account_id));
+ElseIf new.Account_Type = 'D' THEN
 INSERT into databroker_profile(Account_id, Access_status) values(new.Account_id, false);
 END IF;
 END;
@@ -22,7 +22,7 @@ CREATE TRIGGER attemptCancelation
 BEFORE UPDATE ON Appointment
 FOR EACH ROW
 BEGIN
-IF new.status = 'cancled' and old.cancel_window_min<(SELECT TIMESTAMPDIFF(MINUTE, NOW(), old.start_time)) THEN
+IF new.appt_status = 'cancled' and old.cancel_window_min<(SELECT TIMESTAMPDIFF(MINUTE, NOW(), old.startTime)) THEN
 SIGNAL SQLSTATE '45000'
 SET MESSAGE_TEXT = 'Past cancelation window.';
 END IF;
