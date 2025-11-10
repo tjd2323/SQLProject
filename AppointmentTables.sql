@@ -299,4 +299,43 @@ USE UABS;
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (29, 'default report for Home Depot.', '2023-09-15 17:00:00', '2023-08-15 17:00:00', '2023-09-15 17:00:00');
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (30, 'default report for Windex.', '2023-09-15 20:00:00', '2023-06-15 17:00:00', '2023-09-15 17:00:00');
     
-    
+    CREATE TABLE Generic_Account_Log
+  (Account_id int,
+   Account_type char(1) not null,
+   full_name char(50) not null,
+   address char(100) not null,
+   city char(50) not null,
+   country char(50) not null,
+   email char(50) not null,
+   phone char(30) not null,
+   operation varchar(8),
+   odate date,
+   primary key (Account_id));
+   
+    Create table Appointment_log
+   (appt_id int,
+   account_id int,
+   service_id int,
+   notes varchar(3000),
+   appt_status char(100),
+   no_show bool,
+   startTime timestamp,
+   endTime timestamp,
+   cancel_window_min int,
+   operation varchar(8),
+   odate date,
+   primary key (appt_id));
+   
+   CREATE Table Service_Log
+   (service_id int,
+   Account_id int,
+   category char(200),
+   full_Name char(200),
+   duration_min int,
+   buffer_min int,
+   service_status char(30),
+   price double not null,
+   service_description varchar(10000),
+   operation varchar(8),
+   odate date,
+   primary key (service_id));
