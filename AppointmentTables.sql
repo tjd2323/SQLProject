@@ -161,6 +161,7 @@ USE UABS;
 	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Atom', '7667 Orchid Circle', 'Dallas', 'USA', 'Atom@yahoo.com', '713-235-2250', 'rfvt');
 	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Swift Brokerage', '3244 Finale Dr', 'Austin', 'USA', 'swift@yahoo.com', '713-231-4229', 'tgby');
     
+    
 	insert into Buisness_profile values(21, 'Sells whisky and other drinks.');
     insert into Buisness_profile values(22, 'Sells Microwaves and other kitchen accessories.');
     insert into Buisness_profile values(23, 'Sells outdoor sports equipment.');
@@ -248,20 +249,20 @@ USE UABS;
     insert into Verification(account_id, created_at, decision_status, decision_time, reviewer_notes) values (31, '2020-09-15 17:00:00', 'approved',  '2023-09-16 17:00:00', '');
     insert into Verification(account_id, created_at, decision_status, decision_time, reviewer_notes) values (32, '2020-09-15 17:00:00', 'approved',  '2023-09-16 17:00:00', '');
     insert into Verification(account_id, created_at, decision_status, decision_time, reviewer_notes) values (33, '2020-09-15 17:00:00', 'approved',  '2023-09-16 17:00:00', '');
-    
-    insert into Reviews values (1, 21);
-    insert into Reviews values (2, 22);
-    insert into Reviews values (3, 23);
-    insert into Reviews values (4, 24);
-    insert into Reviews values (5, 25);
-    insert into Reviews values (6, 26);
-    insert into Reviews values (7, 27);
-    insert into Reviews values (8, 28);
-    insert into Reviews values (9, 29);
-    insert into Reviews values (10, 30);
-    insert into Reviews values (10, 31);
-    insert into Reviews values (9, 32);
-    insert into Reviews values (8, 33);
+	
+    insert into Reviews values (1, 11);
+    insert into Reviews values (2, 12);
+    insert into Reviews values (3, 13);
+    insert into Reviews values (4, 14);
+    insert into Reviews values (5, 15);
+    insert into Reviews values (6, 16);
+    insert into Reviews values (7, 17);
+    insert into Reviews values (8, 18);
+    insert into Reviews values (9, 19);
+    insert into Reviews values (10, 20);
+    insert into Reviews values (11, 20);
+    insert into Reviews values (12, 19);
+    insert into Reviews values (13, 18);
     
     insert into Appointment_has_message values(1, 1);
     insert into Appointment_has_message values(2, 1);
@@ -301,7 +302,8 @@ USE UABS;
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (30, 'default report for Windex.', '2023-09-15 20:00:00', '2023-06-15 17:00:00', '2023-09-15 17:00:00');
     
     CREATE TABLE Generic_Account_Log
-  (Account_id int,
+  (Account_change_id int auto_increment,
+   Account_id int,
    Account_type char(1) not null,
    full_name char(50) not null,
    address char(100) not null,
@@ -310,11 +312,12 @@ USE UABS;
    email char(50) not null,
    phone char(30) not null,
    operation varchar(8),
-   odate date,
-   primary key (Account_id));
+   odate timestamp,
+   primary key (Account_change_id));
    
     Create table Appointment_log
-   (appt_id int,
+   (appt_change_id int auto_increment,
+   appt_id int,
    account_id int,
    service_id int,
    notes varchar(3000),
@@ -324,11 +327,12 @@ USE UABS;
    endTime timestamp,
    cancel_window_min int,
    operation varchar(8),
-   odate date,
-   primary key (appt_id));
+   odate timestamp,
+   primary key (appt_change_id));
    
    CREATE Table Service_Log
-   (service_id int,
+   (service_change_id int auto_increment,
+   service_id int,
    Account_id int,
    category char(200),
    full_Name char(200),
@@ -338,5 +342,5 @@ USE UABS;
    price double not null,
    service_description varchar(10000),
    operation varchar(8),
-   odate date,
-   primary key (service_id));
+   odate timestamp,
+   primary key (service_change_id));
