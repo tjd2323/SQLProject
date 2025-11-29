@@ -1,154 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>UABS - Registration</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <header class="main-header">
-      <h1>Universal Appointment Booking System (UABS)</h1>
-      <p class="tagline">
-        Create an account to book appointments or manage services.
-      </p>
-    </header>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="main-header">
+    <h1>Universal Appointment Booking System (UABS)</h1>
+    <p class="tagline">Register a new account</p>
+</header>
 
-    <main class="page-container">
-      <section class="card form-card">
-        <h2>Register</h2>
-        <p class="form-intro">
-          Please fill in your details. Fields marked with * are required.
-        </p>
+<nav class="top-nav">
+    <a href="index.html">Home</a>
+    <span class="nav-label">Registration</span>
+</nav>
 
-        <!-- For backend later: your teammate can set real action + method -->
-        <form
-          id="registrationForm"
-          action="#"
-          method="post"
-          class="form-layout"
-        >
-          <!-- Basic info (matches Generic_Account + UI design) -->
-          <div class="form-group">
-            <label for="full_name">Full Name *</label>
-            <input type="text" id="full_name" name="full_name" required />
-          </div>
+<main class="page-container">
+    <section class="card">
+        <h2>Create Your Account</h2>
+        <!-- <p class="hint">
+            Fields marked with * are required. The same form is used for users, businesses, and data brokers.
+        </p> -->
 
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required />
-          </div>
+        <form id="registrationForm" class="form-layout" action="#" method="post">
+            <!-- Basic account info -->
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    <label for="full_name">Full Name / Business or Organization Name *</label>
+                    <input type="text" id="full_name" name="full_name" required
+                           placeholder="e.g., John Doe or OSU Dental Care">
+                </div>
 
-          <div class="form-group">
-            <label for="password">Password *</label>
-            <input type="password" id="password" name="password" required />
-          </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required
+                           placeholder="you@example.com">
+                </div>
 
-          <div class="form-group">
-            <label for="confirm_password">Confirm Password *</label>
-            <input
-              type="password"
-              id="confirm_password"
-              name="confirm_password"
-              required
-            />
-          </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone"
+                           placeholder="+1 (555) 123-4567">
+                </div>
 
-          <div class="form-group">
-            <label for="phone">Phone *</label>
-            <input type="tel" id="phone" name="phone" required />
-          </div>
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
 
-          <div class="form-group">
-            <label for="address">Address *</label>
-            <input type="text" id="address" name="address" required />
-          </div>
-
-          <!-- City / State row -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="city">City *</label>
-              <input type="text" id="city" name="city" required />
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password *</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="state">State</label>
-              <input type="text" id="state" name="state" />
+
+            <!-- Address -->
+            <h3 class="subheading">Contact / Address</h3>
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address"
+                           placeholder="Street address">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State / Province</label>
+                    <input type="text" id="state" name="state">
+                </div>
+
+                <div class="form-group">
+                    <label for="zip">Zip / Postal Code</label>
+                    <input type="text" id="zip" name="zip">
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country *</label>
+                    <input type="text" id="country" name="country" required value="USA">
+                </div>
             </div>
-          </div>
 
-          <!-- Country / Zip row -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="country">Country *</label>
-              <input type="text" id="country" name="country" required />
+            <!-- Account type -->
+            <h3 class="subheading">Account Type</h3>
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    <label for="account_type">Account Type *</label>
+                    <select id="account_type" name="account_type" required>
+                        <option value="">-- Select type --</option>
+                        <option value="C">Customer</option>
+                        <option value="B">Business</option>
+                        <option value="D">Data Broker</option>
+                        <!-- No Admin registration from here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p class="hint">
+                        For Business or Data Broker accounts, the Full Name above should be the
+                        business or organization name.
+                    </p>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="zip">Zip Code</label>
-              <input type="text" id="zip" name="zip" />
+
+            <!-- Business-specific fields -->
+            <div id="businessFields" class="card-subsection hidden">
+                <h3>Business Details</h3>
+                <!-- <p class="hint">
+                    These fields are stored in the <b>Business_Profile</b> table.
+                </p> -->
+
+                <!-- Full Name will be used as the business name -->
+
+                <div class="form-group">
+                    <label for="business_description">Business Description *</label>
+                    <textarea id="business_description" name="business_description"
+                              rows="3"
+                              placeholder="Describe the services your business provides."></textarea>
+                </div>
             </div>
-          </div>
 
-          <!-- Account type = A / B / C / D -->
-          <div class="form-group">
-            <label for="account_type">Account Type *</label>
-            <select id="account_type" name="account_type" required>
-              <option value="">-- Select account type --</option>
-              <option value="C">Customer</option>
-              <option value="B">Business</option>
-              <option value="D">Data Broker</option>
-              <option value="A">Admin</option>
-            </select>
-          </div>
+            <!-- Data broker-specific fields -->
+            <div id="dataBrokerFields" class="card-subsection hidden">
+                <h3>Data Broker Details</h3>
+                <!-- <p class="hint">
+                    Explain why you need access to aggregated business reports.
+                </p> -->
 
-          <!-- Business-only fields -->
-          <div id="businessFields" class="conditional-section hidden">
-    <h3>Business Details</h3>
+                <div class="form-group">
+                    <label for="purpose">Purpose of Data Access *</label>
+                    <textarea id="purpose" name="purpose" rows="3"
+                              placeholder="Analyze trends, generate market reports, etc."></textarea>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label for="business_name">Business Name *</label>
-        <input type="text" id="business_name" name="business_name"
-               placeholder="Example: OSU Dental Care" >
-    </div>
-
-    <div class="form-group">
-        <label for="business_description">Business Description *</label>
-        <textarea id="business_description" name="business_description"
-                  rows="3"
-                  placeholder="Describe the services your business offers."></textarea>
-    </div>
-</div>
-
-
-          <!-- Data broker–only fields -->
-          <div id="dataBrokerFields" class="conditional-section hidden">
-    <h3>Data Broker Details</h3>
-
-    <div class="form-group">
-        <label for="purpose">Purpose of Data Access *</label>
-        <textarea id="purpose" name="purpose"
-                  rows="3"
-                  placeholder="Explain why you need access to business reports."></textarea>
-    </div>
-
-    <p class="hint">
-        When you register as a data broker, your access status will start as <b>Pending</b>.
-        An admin can later review and change it to <b>Active</b> or <b>Inactive</b>.
-    </p>
-</div>
-
-
-          <!-- Buttons -->
-          <div class="form-actions">
-            <button type="submit" class="btn btn-accent">Register</button>
-            <a href="index.html" class="btn btn-outline">Back to Home</a>
-          </div>
+            <!-- Form actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-accent">Register</button>
+                <a href="index.html" class="btn btn-outline">Back to Home</a>
+            </div>
         </form>
-      </section>
-    </main>
+    </section>
+</main>
 
-    <footer class="main-footer">
-      <p>&copy; 2025 UABS Project</p>
-    </footer>
+<footer class="main-footer">
+    <p>&copy; 2025 UABS Project</p>
+</footer>
 
-    <script src="js/main.js"></script>
-  </body>
+<script src="js/main.js"></script>
+</body>
 </html>
