@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UABS - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>Universal Appointment Booking System (UABS)</h1>
+      <p class="tagline">
+        Admin Dashboard – Manage accounts and verifications.
+      </p>
+    </header>
+
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <span class="nav-label">Logged in as: Admin</span>
+    </nav>
+
+    <main class="page-container admin-page">
+      <!-- Business verification requests -->
+      <section class="card">
+        <h2>Business Verification Requests</h2>
+        <!-- <p class="hint">
+          Uses the <b>Verification</b> table linked to <b>Buisness_Profile</b>.
+          Admin can approve or reject each business.
+        </p> -->
+
+        <table class="uabs-table">
+          <thead>
+            <tr>
+              <th>Verification ID</th>
+              <th>Business Name</th>
+              <th>Submitted At</th>
+              <th>Decision</th>
+              <th>Decision Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example rows -->
+            <tr>
+              <td>101</td>
+              <td>OSU Dental Care</td>
+              <td>2025-11-10 09:30</td>
+              <td><span class="status-badge status-pending">Pending</span></td>
+              <td>-</td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-small btn-accent">Approve</button>
+                  <button class="btn btn-small btn-outline">Reject</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>102</td>
+              <td>Quick Cuts Salon</td>
+              <td>2025-11-05 14:00</td>
+              <td><span class="status-badge status-active">Approved</span></td>
+              <td>2025-11-06 10:15</td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-small btn-outline" disabled>
+                    Already decided
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Data broker access overview -->
+      <section class="card">
+        <h2>Data Broker Access</h2>
+        <!-- <p class="hint">
+          Summary of rows from <b>DataBroker_Profile</b>, so admin can monitor
+          who has access.
+        </p> -->
+
+        <table class="uabs-table">
+          <thead>
+            <tr>
+              <th>Data Broker</th>
+              <th>Email</th>
+              <th>Purpose</th>
+              <th>Access Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example rows -->
+            <tr>
+              <td>Acme Analytics</td>
+              <td>reports@acmeanalytics.com</td>
+              <td>Analyze appointment trends for healthcare providers.</td>
+              <td><span class="status-badge status-pending">Pending</span></td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-small btn-accent">Activate</button>
+                  <button class="btn btn-small btn-outline">Deactivate</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>City Insights Lab</td>
+              <td>contact@cityinsights.com</td>
+              <td>City-wide mobility and service usage study.</td>
+              <td><span class="status-badge status-active">Active</span></td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-small btn-outline">Deactivate</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- All accounts overview -->
+      <section class="card">
+        <h2>All Accounts</h2>
+        <!-- <p class="hint">
+          This table is based on the <b>Generic_Account</b> table (plus
+          account_type).
+        </p> -->
+
+        <table class="uabs-table">
+          <thead>
+            <tr>
+              <th>Account ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Type</th>
+              <th>City</th>
+              <th>Country</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example rows -->
+            <tr>
+              <td>1</td>
+              <td>John Doe</td>
+              <td>john.doe@example.com</td>
+              <td>User</td>
+              <td>Columbus</td>
+              <td>USA</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>OSU Dental Care</td>
+              <td>dentalcare@osuclinic.com</td>
+              <td>Business</td>
+              <td>Columbus</td>
+              <td>USA</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Acme Analytics</td>
+              <td>reports@acmeanalytics.com</td>
+              <td>Data Broker</td>
+              <td>Columbus</td>
+              <td>USA</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 UABS Project</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

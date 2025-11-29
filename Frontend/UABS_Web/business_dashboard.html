@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UABS - Business Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>Universal Appointment Booking System (UABS)</h1>
+      <p class="tagline">
+        Business Dashboard – Manage your services and appointments.
+      </p>
+    </header>
+
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <span class="nav-label">Logged in as: Business</span>
+    </nav>
+
+    <main class="page-container stacked-dashboard">
+      <!-- Business profile -->
+      <section class="card">
+        <h2>Business Profile</h2>
+        <!-- <p class="hint">
+          This information is stored in <b>Generic_Account</b> and
+          <b>Buisness_Profile</b>.
+        </p> -->
+
+        <!-- Example data; backend will replace with real values -->
+        <div class="profile-grid">
+          <div>
+            <strong>Business Name:</strong>
+            <span>OSU Dental Care</span>
+          </div>
+          <div>
+            <strong>Owner / Contact Person:</strong>
+            <span>Dr. Jane Smith</span>
+          </div>
+          <div>
+            <strong>Email:</strong>
+            <span>dentalcare@osuclinic.com</span>
+          </div>
+          <div>
+            <strong>Phone:</strong>
+            <span>+1 (555) 987-6543</span>
+          </div>
+          <div>
+            <strong>Address:</strong>
+            <span>123 Health St, Columbus, OH</span>
+          </div>
+          <div>
+            <strong>Description:</strong>
+            <span>General dental checkups, cleaning, and consultation.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="card">
+        <div class="card-header-row">
+          <h2>My Services</h2>
+          <button class="btn btn-small" id="btnAddService">
+            Add New Service
+          </button>
+        </div>
+        <!-- <p class="hint">
+        This corresponds to the <b>Service</b> table filtered by the current business_account_id.
+    </p> -->
+
+        <!-- Search bar (same as user dashboard style) -->
+        <div class="search-row">
+          <label for="businessServiceSearch" class="search-label"
+            >Search:</label
+          >
+          <input
+            type="text"
+            id="businessServiceSearch"
+            class="search-input"
+            placeholder="Type here..."
+          />
+        </div>
+
+        <table class="uabs-table" id="businessServicesTable">
+          <thead>
+            <tr>
+              <th>Service Name</th>
+              <th>Price</th>
+              <th>Duration (min)</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example service rows -->
+            <tr>
+              <td>Dental Checkup</td>
+              <td>$80</td>
+              <td>30</td>
+              <td>Active</td>
+              <td>
+                <button class="btn btn-small btn-outline btn-edit-service">
+                  Edit
+                </button>
+                <button class="btn btn-small">Deactivate</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Teeth Cleaning</td>
+              <td>$120</td>
+              <td>45</td>
+              <td>Inactive</td>
+              <td>
+                <button class="btn btn-small btn-outline btn-edit-service">
+                  Edit
+                </button>
+                <button class="btn btn-small">Activate</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Add / Edit Service form -->
+        <div id="serviceFormPanel" class="service-form hidden">
+          <h3 id="serviceFormTitle">Add New Service</h3>
+          <form id="serviceForm" class="form-layout">
+            <div class="service-form-grid">
+              <div class="form-group">
+                <label for="svc_name">Service Name *</label>
+                <input type="text" id="svc_name" name="svc_name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="svc_price">Price (USD) *</label>
+                <input
+                  type="number"
+                  id="svc_price"
+                  name="svc_price"
+                  min="0"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="svc_duration">Duration (minutes) *</label>
+                <input
+                  type="number"
+                  id="svc_duration"
+                  name="svc_duration"
+                  min="1"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="svc_status">Status *</label>
+                <select id="svc_status" name="svc_status" required>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="grid-column: 1 / -1">
+                <label for="svc_description">Description (optional)</label>
+                <textarea
+                  id="svc_description"
+                  name="svc_description"
+                  rows="3"
+                  placeholder="Short description of the service..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-accent">Save Service</button>
+              <button
+                type="button"
+                class="btn btn-outline"
+                id="cancelServiceForm"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Appointments for this business -->
+      <section class="card">
+        <h2>Appointments for My Services</h2>
+        <!-- <p class="hint">
+          Data from <b>Appointment</b> joined with <b>Service</b> and customer
+          accounts where <i>Service.business_account_id = current business</i>.
+        </p> -->
+
+        <table class="uabs-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Status</th>
+              <th>Update Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example appointment rows -->
+            <tr>
+              <td>2025-12-01</td>
+              <td>10:00 AM</td>
+              <td>John Doe</td>
+              <td>Dental Checkup</td>
+              <td>Scheduled</td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-small">Mark Completed</button>
+                  <button class="btn btn-small btn-outline">Cancel</button>
+                  <button class="btn btn-small btn-outline">No-show</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2025-11-20</td>
+              <td>3:00 PM</td>
+              <td>Mary Johnson</td>
+              <td>Teeth Cleaning</td>
+              <td>Completed</td>
+              <td>
+                <button class="btn btn-small btn-outline" disabled>
+                  Completed
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Availability / Schedule -->
+      <section class="card">
+        <div class="card-header-row">
+          <h2>Availability / Schedule</h2>
+          <button class="btn btn-small" id="btnAddAvailability">
+            Add Availability Block
+          </button>
+        </div>
+
+        <p class="hint">
+          Represents rows in the <b>Availability_block</b> table for this
+          business.
+        </p>
+
+        <table class="uabs-table" id="availabilityTable">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example availability rows -->
+            <tr>
+              <td>Monday</td>
+              <td>09:00</td>
+              <td>13:00</td>
+              <td>
+                <button class="btn btn-small btn-outline btn-edit-availability">
+                  Edit
+                </button>
+                <button class="btn btn-small btn-delete-availability">
+                  Delete
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>14:00</td>
+              <td>18:00</td>
+              <td>
+                <button class="btn btn-small btn-outline btn-edit-availability">
+                  Edit
+                </button>
+                <button class="btn btn-small btn-delete-availability">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Add / Edit Availability form -->
+        <div id="availabilityFormPanel" class="availability-form hidden">
+          <h3 id="availabilityFormTitle">Add Availability Block</h3>
+          <form id="availabilityForm" class="form-layout">
+            <div class="availability-form-grid">
+              <div class="form-group">
+                <label for="avail_day">Day *</label>
+                <select id="avail_day" name="avail_day" required>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="avail_start">Start Time *</label>
+                <input
+                  type="time"
+                  id="avail_start"
+                  name="avail_start"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="avail_end">End Time *</label>
+                <input type="time" id="avail_end" name="avail_end" required />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-accent">
+                Save Availability
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline"
+                id="cancelAvailabilityForm"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 UABS Project</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UABS - Registration</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>Universal Appointment Booking System (UABS)</h1>
+      <p class="tagline">
+        Create an account to book appointments or manage services.
+      </p>
+    </header>
+
+    <main class="page-container">
+      <section class="card form-card">
+        <h2>Register</h2>
+        <p class="form-intro">
+          Please fill in your details. Fields marked with * are required.
+        </p>
+
+        <!-- For backend later: your teammate can set real action + method -->
+        <form
+          id="registrationForm"
+          action="#"
+          method="post"
+          class="form-layout"
+        >
+          <!-- Basic info (matches Generic_Account + UI design) -->
+          <div class="form-group">
+            <label for="full_name">Full Name *</label>
+            <input type="text" id="full_name" name="full_name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password *</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password *</label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address *</label>
+            <input type="text" id="address" name="address" required />
+          </div>
+
+          <!-- City / State row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City *</label>
+              <input type="text" id="city" name="city" required />
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" id="state" name="state" />
+            </div>
+          </div>
+
+          <!-- Country / Zip row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country">Country *</label>
+              <input type="text" id="country" name="country" required />
+            </div>
+            <div class="form-group">
+              <label for="zip">Zip Code</label>
+              <input type="text" id="zip" name="zip" />
+            </div>
+          </div>
+
+          <!-- Account type = A / B / C / D -->
+          <div class="form-group">
+            <label for="account_type">Account Type *</label>
+            <select id="account_type" name="account_type" required>
+              <option value="">-- Select account type --</option>
+              <option value="C">Customer</option>
+              <option value="B">Business</option>
+              <option value="D">Data Broker</option>
+              <option value="A">Admin</option>
+            </select>
+          </div>
+
+          <!-- Business-only fields -->
+          <div id="businessFields" class="conditional-section hidden">
+    <h3>Business Details</h3>
+
+    <div class="form-group">
+        <label for="business_name">Business Name *</label>
+        <input type="text" id="business_name" name="business_name"
+               placeholder="Example: OSU Dental Care" >
+    </div>
+
+    <div class="form-group">
+        <label for="business_description">Business Description *</label>
+        <textarea id="business_description" name="business_description"
+                  rows="3"
+                  placeholder="Describe the services your business offers."></textarea>
+    </div>
+</div>
+
+
+          <!-- Data broker–only fields -->
+          <div id="dataBrokerFields" class="conditional-section hidden">
+    <h3>Data Broker Details</h3>
+
+    <div class="form-group">
+        <label for="purpose">Purpose of Data Access *</label>
+        <textarea id="purpose" name="purpose"
+                  rows="3"
+                  placeholder="Explain why you need access to business reports."></textarea>
+    </div>
+
+    <p class="hint">
+        When you register as a data broker, your access status will start as <b>Pending</b>.
+        An admin can later review and change it to <b>Active</b> or <b>Inactive</b>.
+    </p>
+</div>
+
+
+          <!-- Buttons -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-accent">Register</button>
+            <a href="index.html" class="btn btn-outline">Back to Home</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 UABS Project</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

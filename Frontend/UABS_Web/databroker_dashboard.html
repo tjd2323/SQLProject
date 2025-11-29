@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UABS - Data Broker Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="main-header">
+    <h1>Universal Appointment Booking System (UABS)</h1>
+    <p class="tagline">Data Broker Dashboard – View aggregated business reports.</p>
+</header>
+
+<nav class="top-nav">
+    <a href="index.html">Home</a>
+    <span class="nav-label">Logged in as: Data Broker</span>
+</nav>
+
+<main class="page-container stacked-dashboard">
+
+    <!-- Data broker profile -->
+    <section class="card">
+        <h2>Data Broker Profile</h2>
+
+        <div class="profile-grid">
+            <div>
+                <strong>Full Name:</strong>
+                <span>Acme Analytics</span>
+            </div>
+            <div>
+                <strong>Contact Email:</strong>
+                <span>reports@acmeanalytics.com</span>
+            </div>
+            <div>
+                <strong>Phone:</strong>
+                <span>+1 (555) 222-3344</span>
+            </div>
+            <div>
+                <strong>City:</strong>
+                <span>Columbus</span>
+            </div>
+            <div>
+                <strong>Country:</strong>
+                <span>USA</span>
+            </div>
+            <div>
+                <strong>Purpose of Data Access:</strong>
+                <span>Analyze appointment trends for local healthcare providers.</span>
+            </div>
+            <div>
+                <strong>Access Status:</strong>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters + reports -->
+    <section class="card">
+        <h2>Business Reports</h2>
+
+        <!-- Filter form (layout stays the same) -->
+        <form class="filter-form" action="#" method="get" id="reportFilterForm">
+            <div class="form-group">
+                <label for="filter_business">Business Name</label>
+                <input type="text" id="filter_business" name="filter_business"
+                       placeholder="e.g., OSU Dental Care">
+            </div>
+
+            <div class="form-group">
+                <label for="filter_city">City</label>
+                <input type="text" id="filter_city" name="filter_city"
+                       placeholder="e.g., Columbus">
+            </div>
+
+            <div class="form-group">
+                <label for="filter_country">Country</label>
+                <input type="text" id="filter_country" name="filter_country"
+                       placeholder="e.g., USA">
+            </div>
+
+            <div class="form-group">
+                <label for="filter_start_date">Period Start</label>
+                <input type="date" id="filter_start_date" name="filter_start_date">
+            </div>
+
+            <div class="form-group">
+                <label for="filter_end_date">Period End</label>
+                <input type="date" id="filter_end_date" name="filter_end_date">
+            </div>
+
+            <div class="form-group">
+                <label for="filter_min_appointments">Min. Appointments</label>
+                <input type="number" id="filter_min_appointments" name="filter_min_appointments" min="0">
+            </div>
+
+            <div class="filter-actions">
+                <!-- type="button" so the page does NOT reload -->
+                <button type="button"
+                        id="btnApplyReportFilters"
+                        class="btn btn-small btn-accent">
+                    Apply Filters
+                </button>
+                <button type="button"
+                        id="btnClearReportFilters"
+                        class="btn btn-small btn-outline">
+                    Clear
+                </button>
+            </div>
+        </form>
+
+        <table class="uabs-table" id="businessReportsTable">
+            <thead>
+            <tr>
+                <th>Business</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Report Period</th>
+                <th>Total Appts</th>
+                <th>Completed</th>
+                <th>Canceled</th>
+                <th>No-show</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Example report rows; real data from Buisness_Report -->
+            <tr>
+                <td>OSU Dental Care</td>
+                <td>Columbus</td>
+                <td>USA</td>
+                <td>2025-01-01 to 2025-03-31</td>
+                <td>120</td>
+                <td>95</td>
+                <td>15</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Quick Cuts Salon</td>
+                <td>Columbus</td>
+                <td>USA</td>
+                <td>2025-01-01 to 2025-03-31</td>
+                <td>80</td>
+                <td>60</td>
+                <td>10</td>
+                <td>10</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<footer class="main-footer">
+    <p>&copy; 2025 UABS Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

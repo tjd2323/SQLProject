@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UABS - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="main-header">
+    <h1>Universal Appointment Booking System (UABS)</h1>
+    <p class="tagline">Login to access your dashboard.</p>
+</header>
+
+<main class="page-container stacked-dashboard">
+    <section class="card form-card">
+        <h2>Login</h2>
+        <p class="form-intro">
+            Enter your email, password, and account type.  
+            For the project demo, login will simply redirect you to the matching dashboard.
+        </p>
+
+        <form id="loginForm" action="#" method="post" class="form-layout">
+            <div class="form-group">
+                <label for="login_email">Email *</label>
+                <input type="email" id="login_email" name="login_email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="login_password">Password *</label>
+                <input type="password" id="login_password" name="login_password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="account_type">Account Type *</label>
+                <select id="account_type" name="account_type" required>
+                    <option value="">-- Select account type --</option>
+                    <option value="C">Customer</option>
+                    <option value="B">Business</option>
+                    <option value="D">Data Broker</option>
+                    <option value="A">Admin</option>
+                </select>
+                <small class="hint">
+                    If you came here by clicking "Login as User/Business/Data Broker/Admin",
+                    this field will already be selected for you.
+                </small>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-accent">Login</button>
+                <a href="index.html" class="btn btn-outline">Back to Home</a>
+                <a href="register.html" class="btn btn-outline">Register</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer class="main-footer">
+    <p>&copy; 2025 UABS Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
