@@ -11,6 +11,7 @@ USE UABS;
    country char(50) not null,
    email char(50) not null,
    phone char(30) not null,
+   pass char(30) not null,
    primary key (Account_id),
    constraint Account_Typing check (Account_type IN ('A', 'B', 'C', 'D')));
    
@@ -116,49 +117,50 @@ USE UABS;
     primary key(report_id),
     foreign key(account_id) references Buisness_profile(account_id) on delete cascade on update cascade);
     
-    insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Tyler Dean', '4210 Rotal Manor Drive', 'Houston', 'USA', 'someEmail@yahoo.com', '123-456-7890');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Simone Ascher', '7115 Boondoggle Drive', 'Houston', 'USA', 'aSimon56@gmail.com', '713-895-8172');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Franklin Roosevelt', '5532 Vista Drive', 'Houston', 'USA', 'dFrankRoss@outlook.com', '832-581-7319');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Kat Anchovy', '6200 Glenn Dale St', 'Houston', 'USA', 'fishyCat@gmail.com', '231-559-7134');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Jack Black', '6220 AppleJack Circle', 'Houston', 'USA', 'thatOneGuy@sbcglobal.net', '264-252-9991');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Daniel Thorn', '7089 Woodvale St', 'Dallas', 'USA', 'DJThorn@gmail.com', '346-226-9801');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Dave Bean', '1566 Worm Drive', 'Dallas', 'USA', 'tjd@oul.com', '615-034-6821');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Ellie Dryer', '1615 Melon Str', 'Dallas', 'USA', 'lintel@live.com', '832-555-1561');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Max Williams', '9137 Strawberry Ln', 'Houston', 'USA', 'MaxWillie@gmail.com', '819-336-8134');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('C', 'Billy Nassar', '6355 Cherrydale Lane', 'Austin', 'USA', 'thebesCar@gmail.com', '115-879-3513');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Rodium Root', '1923 Pecan Street', 'London', 'UK', 'elementalRodie@yahoo.com', '+31 832-513-4931');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Julio Esparza', '7251 Canary Circle', 'Houston', 'USA', 'espJuly@gmail.com', '737-328-3568');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Mary Madenline', '6105 Hill Country St', 'Berlin', 'Germany', 'marMaddie@gmail.com', '+55 281-998-5351');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Allison Mcqown', '0351 Siren Drive', 'Houston', 'USA', 'Allie.m@icloud.com', '716-002-8732');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Nayley Torres', '7521 Holl Lane', 'Dallas', 'USA', 'ellieTorres@yahoo.com', '281-998-8187');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Daina Cruz', '2001 Aquifer Dr', 'Austin', 'USA', 'todiefor@gmail.com', '+90 135-649-8742');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Tulip Pan', '8372 Rose Hill Circle', 'Houston', 'USA', 'theNoodel@unemployed.com', '+84 336-814-9367');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Kate Delly', '6257 Morton Hill Dr', 'Houston', 'USA', 'ladyKaty@unemployed.com', '832-031-2418');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Isablla Ohera', '7732 Greenbriar Lane', 'San Antonio', 'USA', 'issaOhera@gmail.com', '891-367-4821');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('A', 'Sunny Saldivar', '7172 Cheezit Dr', 'San Antonio', 'USA', 'solSaldi@yahoo.com', '+886 865-123-4209');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Jack Daniels', '5333 Garland St', 'Houston', 'USA', 'whisky@JDaniels.com', '+44 098-765-4321');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Micro Wave co.', '8064 Telephone Road', 'Berlin', 'Germany', 'support@littleWave.com', '+33 420-678-6969');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Arrow Head inc.', '9500 Arizona St', 'Houston', 'USA', 'straightAhead@arrowHead.org', '1-800-27769');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Steel Supply mfg.', '1776 Hamilton Dr', 'Dallas', 'USA', 'flint@steelssupply.org', '1-800-7833548');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Allpoints LLC', '6767 Meme St', 'Dallas', 'USA', 'someBuisness@email.com', '717-23-4599');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Kitty Co.', '4200 Leaves Drive', 'Houton', 'USA', 'meow@kitty.co', '713-456-8732');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Fish & Chips', '6968 FeedMe ave', 'London', 'UK', 'crunch@fmp.org', '832-516-4324');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Lockheed Martin', '4210 Musician Lane', 'Houston', 'USA', 'biggerBuisness@aerospace.org', '281-889-7650');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Home Depot', '3344 abc Drive', 'Austin', 'USA', 'wood@homedepot.com', '647-998-1738');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Windex inc', '2020 MLK st', 'San Antonio', 'USA', 'getClean@windex.com', '713-667-0195');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Lowes', '7382 Finesse St', 'San Antonio', 'USA', 'moreWood@lowes.com', '281-835-7614');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Target', '5522 Blaze Dr', 'Austin', 'USA', 'superiorWalmart@weAreBetter.com', '713-449-7273');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('B', 'Walmart', '8733 Orchid Circle', 'Dallas', 'USA', 'NoYouAreNot@Lies.com', '281-283-2884');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Google', '7777 Electric Dr', 'Houston', 'USA', 'search@goo.gl', '441-987-6413');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Facebook', '3344 Aquifer Dr', 'Austin', 'USA', 'RussianSpies@watchingYou.org', '281-734-4513');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Yahoo', '7432 Murdle Dr', 'Houston', 'USA', 'yahoo@yahoo.com', '437-873-6981');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Insight Forge', '6733 Taco Dr', 'Dallas', 'USA', 'giveUsYourData@forge.com', '832-763-4512');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Data Catalyst', '4220 Goat St', 'Dallas', 'USA', 'catalyze@yourdata.com', '713-765-7519');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Analytics Sphere', '5514 Cheese Pizza Dr', 'Dallas', 'USA', 'cube@triangle.com', '832-734-9627');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Insight Next', '6251 Toshiba Dr', 'San Antonio', 'USA', 'blind@next.org', '346-923-1821');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Orcale', '4313 Chess St', 'Houston', 'USA', 'oracle@search.com', '832-223-2520');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Atom', '7667 Orchid Circle', 'Dallas', 'USA', 'Atom@yahoo.com', '713-235-2250');
-	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone)   values ('D', 'Swift Brokerage', '3244 Finale Dr', 'Austin', 'USA', 'swift@yahoo.com', '713-231-4229');
+    insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Tyler Dean', '4210 Rotal Manor Drive', 'Houston', 'USA', 'someEmail@yahoo.com', '123-456-7890', 'abcd');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Simone Ascher', '7115 Boondoggle Drive', 'Houston', 'USA', 'aSimon56@gmail.com', '713-895-8172', 'qwer');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Franklin Roosevelt', '5532 Vista Drive', 'Houston', 'USA', 'dFrankRoss@outlook.com', '832-581-7319', 'wert');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Kat Anchovy', '6200 Glenn Dale St', 'Houston', 'USA', 'fishyCat@gmail.com', '231-559-7134', 'erty');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Jack Black', '6220 AppleJack Circle', 'Houston', 'USA', 'thatOneGuy@sbcglobal.net', '264-252-9991', 'rtyu');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Daniel Thorn', '7089 Woodvale St', 'Dallas', 'USA', 'DJThorn@gmail.com', '346-226-9801', 'tyui');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Dave Bean', '1566 Worm Drive', 'Dallas', 'USA', 'tjd@oul.com', '615-034-6821', 'yuio');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Ellie Dryer', '1615 Melon Str', 'Dallas', 'USA', 'lintel@live.com', '832-555-1561', 'uiop');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Max Williams', '9137 Strawberry Ln', 'Houston', 'USA', 'MaxWillie@gmail.com', '819-336-8134', 'iopa');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('C', 'Billy Nassar', '6355 Cherrydale Lane', 'Austin', 'USA', 'thebesCar@gmail.com', '115-879-3513', 'opas');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Rodium Root', '1923 Pecan Street', 'London', 'UK', 'elementalRodie@yahoo.com', '+31 832-513-4931', 'pasd');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Julio Esparza', '7251 Canary Circle', 'Houston', 'USA', 'espJuly@gmail.com', '737-328-3568', 'asdf');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Mary Madenline', '6105 Hill Country St', 'Berlin', 'Germany', 'marMaddie@gmail.com', '+55 281-998-5351', 'sdfg');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Allison Mcqown', '0351 Siren Drive', 'Houston', 'USA', 'Allie.m@icloud.com', '716-002-8732', 'dfgh');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Nayley Torres', '7521 Holl Lane', 'Dallas', 'USA', 'ellieTorres@yahoo.com', '281-998-8187', 'fghj');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Daina Cruz', '2001 Aquifer Dr', 'Austin', 'USA', 'todiefor@gmail.com', '+90 135-649-8742', 'ghjk');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Tulip Pan', '8372 Rose Hill Circle', 'Houston', 'USA', 'theNoodel@unemployed.com', '+84 336-814-9367', 'hjkl');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Kate Delly', '6257 Morton Hill Dr', 'Houston', 'USA', 'ladyKaty@unemployed.com', '832-031-2418', 'jklz');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Isablla Ohera', '7732 Greenbriar Lane', 'San Antonio', 'USA', 'issaOhera@gmail.com', '891-367-4821', 'klzx');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('A', 'Sunny Saldivar', '7172 Cheezit Dr', 'San Antonio', 'USA', 'solSaldi@yahoo.com', '+886 865-123-4209', 'lzxc');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Jack Daniels', '5333 Garland St', 'Houston', 'USA', 'whisky@JDaniels.com', '+44 098-765-4321', 'zxcv');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Micro Wave co.', '8064 Telephone Road', 'Berlin', 'Germany', 'support@littleWave.com', '+33 420-678-6969', 'xcvb');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Arrow Head inc.', '9500 Arizona St', 'Houston', 'USA', 'straightAhead@arrowHead.org', '1-800-27769', 'cvbn');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Steel Supply mfg.', '1776 Hamilton Dr', 'Dallas', 'USA', 'flint@steelssupply.org', '1-800-7833548', 'vbnm');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Allpoints LLC', '6767 Meme St', 'Dallas', 'USA', 'someBuisness@email.com', '717-23-4599', 'bnmq');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Kitty Co.', '4200 Leaves Drive', 'Houton', 'USA', 'meow@kitty.co', '713-456-8732', 'nmqw');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Fish & Chips', '6968 FeedMe ave', 'London', 'UK', 'crunch@fmp.org', '832-516-4324', 'mqwe');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Lockheed Martin', '4210 Musician Lane', 'Houston', 'USA', 'biggerBuisness@aerospace.org', '281-889-7650', 'qetu');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Home Depot', '3344 abc Drive', 'Austin', 'USA', 'wood@homedepot.com', '647-998-1738', 'wryi');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Windex inc', '2020 MLK st', 'San Antonio', 'USA', 'getClean@windex.com', '713-667-0195', 'etuo');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Lowes', '7382 Finesse St', 'San Antonio', 'USA', 'moreWood@lowes.com', '281-835-7614', 'ryup');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Target', '5522 Blaze Dr', 'Austin', 'USA', 'superiorWalmart@weAreBetter.com', '713-449-7273', 'tuip');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('B', 'Walmart', '8733 Orchid Circle', 'Dallas', 'USA', 'NoYouAreNot@Lies.com', '281-283-2884', 'yips');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Google', '7777 Electric Dr', 'Houston', 'USA', 'search@goo.gl', '441-987-6413', 'uoad');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Facebook', '3344 Aquifer Dr', 'Austin', 'USA', 'RussianSpies@watchingYou.org', '281-734-4513', 'adgj');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Yahoo', '7432 Murdle Dr', 'Houston', 'USA', 'yahoo@yahoo.com', '437-873-6981', 'sfhk');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Insight Forge', '6733 Taco Dr', 'Dallas', 'USA', 'giveUsYourData@forge.com', '832-763-4512', 'dgjl');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Data Catalyst', '4220 Goat St', 'Dallas', 'USA', 'catalyze@yourdata.com', '713-765-7519', 'zcbm');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Analytics Sphere', '5514 Cheese Pizza Dr', 'Dallas', 'USA', 'cube@triangle.com', '832-734-9627', 'qazw');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Insight Next', '6251 Toshiba Dr', 'San Antonio', 'USA', 'blind@next.org', '346-923-1821', 'wsxe');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Orcale', '4313 Chess St', 'Houston', 'USA', 'oracle@search.com', '832-223-2520', 'edcr');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Atom', '7667 Orchid Circle', 'Dallas', 'USA', 'Atom@yahoo.com', '713-235-2250', 'rfvt');
+	insert into Generic_Account(Account_type, full_name, address, city, country, email, phone, pass)   values ('D', 'Swift Brokerage', '3244 Finale Dr', 'Austin', 'USA', 'swift@yahoo.com', '713-231-4229', 'tgby');
+    
     
 	insert into Buisness_profile values(21, 'Sells whisky and other drinks.');
     insert into Buisness_profile values(22, 'Sells Microwaves and other kitchen accessories.');
@@ -221,7 +223,7 @@ USE UABS;
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (3,  5, 'Getting eye exam',  'no-show', true,  '2023-09-16 17:00:00', '2023-09-16 17:30:00', 60);
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (6,  5, 'Getting eye exam',  'completed', false,  '2023-10-16 17:00:00', '2023-10-16 17:30:00', 60);
     insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (10,  10, 'Getting oil change with synthetic oil',  'no-show', true,  '2023-06-16 12:00:00', '2023-06-16 12:45:00', 120);
-    insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (1,  7, 'Buying a cat',  'completed', false,  '2024-09-16 14:00:00', '2023-09-16 16:00:00', 1200);
+    insert into Appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window_min) values (1,  7, 'Buying a cat',  'completed', false,  '2024-09-16 14:00:00', '2024-09-16 16:00:00', 1200);
     
     insert into Reminder values (1, 1, 'received', '2023-09-15 17:00:00', '2023-09-15 17:00:00');
     insert into Reminder values (2, 1, 'received', '2023-09-16 7:00:00', '2023-09-16 7:00:00');
@@ -247,20 +249,20 @@ USE UABS;
     insert into Verification(account_id, created_at, decision_status, decision_time, reviewer_notes) values (31, '2020-09-15 17:00:00', 'approved',  '2023-09-16 17:00:00', '');
     insert into Verification(account_id, created_at, decision_status, decision_time, reviewer_notes) values (32, '2020-09-15 17:00:00', 'approved',  '2023-09-16 17:00:00', '');
     insert into Verification(account_id, created_at, decision_status, decision_time, reviewer_notes) values (33, '2020-09-15 17:00:00', 'approved',  '2023-09-16 17:00:00', '');
-    
-    insert into Reviews values (1, 21);
-    insert into Reviews values (2, 22);
-    insert into Reviews values (3, 23);
-    insert into Reviews values (4, 24);
-    insert into Reviews values (5, 25);
-    insert into Reviews values (6, 26);
-    insert into Reviews values (7, 27);
-    insert into Reviews values (8, 28);
-    insert into Reviews values (9, 29);
-    insert into Reviews values (10, 30);
-    insert into Reviews values (10, 31);
-    insert into Reviews values (9, 32);
-    insert into Reviews values (8, 33);
+	
+    insert into Reviews values (1, 11);
+    insert into Reviews values (2, 12);
+    insert into Reviews values (3, 13);
+    insert into Reviews values (4, 14);
+    insert into Reviews values (5, 15);
+    insert into Reviews values (6, 16);
+    insert into Reviews values (7, 17);
+    insert into Reviews values (8, 18);
+    insert into Reviews values (9, 19);
+    insert into Reviews values (10, 20);
+    insert into Reviews values (11, 20);
+    insert into Reviews values (12, 19);
+    insert into Reviews values (13, 18);
     
     insert into Appointment_has_message values(1, 1);
     insert into Appointment_has_message values(2, 1);
@@ -299,4 +301,46 @@ USE UABS;
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (29, 'default report for Home Depot.', '2023-09-15 17:00:00', '2023-08-15 17:00:00', '2023-09-15 17:00:00');
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (30, 'default report for Windex.', '2023-09-15 20:00:00', '2023-06-15 17:00:00', '2023-09-15 17:00:00');
     
-    
+    CREATE TABLE Generic_Account_Log
+  (Account_change_id int auto_increment,
+   Account_id int,
+   Account_type char(1) not null,
+   full_name char(50) not null,
+   address char(100) not null,
+   city char(50) not null,
+   country char(50) not null,
+   email char(50) not null,
+   phone char(30) not null,
+   operation varchar(8),
+   odate timestamp,
+   primary key (Account_change_id));
+   
+    Create table Appointment_log
+   (appt_change_id int auto_increment,
+   appt_id int,
+   account_id int,
+   service_id int,
+   notes varchar(3000),
+   appt_status char(100),
+   no_show bool,
+   startTime timestamp,
+   endTime timestamp,
+   cancel_window_min int,
+   operation varchar(8),
+   odate timestamp,
+   primary key (appt_change_id));
+   
+   CREATE Table Service_Log
+   (service_change_id int auto_increment,
+   service_id int,
+   Account_id int,
+   category char(200),
+   full_Name char(200),
+   duration_min int,
+   buffer_min int,
+   service_status char(30),
+   price double not null,
+   service_description varchar(10000),
+   operation varchar(8),
+   odate timestamp,
+   primary key (service_change_id));

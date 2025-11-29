@@ -2,26 +2,29 @@ Things to do:
 DDL:
 Make tables (done)
 Insertions (done)
-Constraints (might need more, but we do have these)
+Constraints (done)
 DML:
-At least 3 triggers (when appointment passes, reschedule, cancel)
-At least 3 stored procedures (databroker query request, user report, business report)
-2-3 log tables (users, businesses, data brokers)
+At least 3 triggers (done)
+At least 3 stored procedures (done)
+2-3 log tables (done)
 5 total roles (db admin (all permissions), db worker (insert/delete/update permissions, can’t drop tables), specialized user (thinking data broker here, specialized views), user (user view) permission and specific insert/deletes on appointments, business (business view) with specific insert/delete permissions on appointments) (done)
-3 or so views (data broker view, business view, user view) (done, might need more)
-2 cursors (going through appointments for user, going through clients for business)
+3 or so views (data broker view, business view, user view) (done)
+2 cursors (going through appointments for user, going through clients for business) - just did one cursor for now
 1 index (on appointments maybe, or maybe on businesses) (done)
-2+ constraints (allowable user/ businesses, allowable queries for data brokers)
+2+ constraints (allowable user/ businesses, allowable queries for data brokers) (done)
 
-Documentation:
-Need to make database work as described in System design documentation
-user interface design diagrams (4, since 4 types of users)
+Documentation: (this was for the last deliverable)
+Need to make database work as described in System design documentation (done)
+user interface design diagrams (4, since 4 types of users) (done)
 For attributes:
-Proposed domain (enforced via check clause and trigger as appropriate)
+Proposed domain (enforced via check clause and trigger as appropriate) (just need to fix genericAccount table) - done (password)
 Description
 Additional constraints
 Data types
 Table descriptions
 Additional constraints for tables
 Referential integrity (cascade, etc)
+
+fix genericAccount table (done)
+cursor (done)
 
