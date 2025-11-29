@@ -373,7 +373,7 @@ main {
     gap: 24px;
 }
 
-/* Admin page also uses stacked style (keep this, or make it extend) */
+/* Admin page also uses stacked styl */
 .admin-page {
     display: flex;
     flex-direction: column;
@@ -433,4 +433,80 @@ main {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+}
+
+/* Registration form tweaks */
+.form-layout .form-group {
+  margin-bottom: 1rem;          /* vertical space between fields */
+}
+
+.form-section {
+  margin-top: 1.25rem;          /* space between logical sections */
+}
+
+/* Red asterisk for required fields */
+.required-star {
+  color: #c0392b;               /* red */
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* Wider card for registration */
+.card-wide {
+  max-width: 900px;
+}
+
+/* Ensure two-column layout where possible */
+.card-wide .form-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  row-gap: 1rem;
+}
+
+/* On small screens, fall back to one column */
+@media (max-width: 768px) {
+  .card-wide {
+    max-width: 100%;
+  }
+  .card-wide .form-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sub-blocks inside a card (e.g., send message, add/edit forms) */
+.card-subsection {
+  margin-top: 1.75rem;      /* more space from the table above */
+  padding-top: 1rem;        /* space inside the subsection */
+  border-top: 1px solid #e2e6ea; /* subtle separator line */
+}
+
+/* Add space under sub-section headings like "Send a New Message" */
+.card-subsection h3 {
+  margin-bottom: 0.75rem;   /* increase if you want more space */
+}
+
+/* Make subject buttons look like plain text links */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #0b5ed7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: none;
+}
+
+/* Box around the message body */
+.message-body-box {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  border: 1px solid #e2e6ea;
 }

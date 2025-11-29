@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const businessFields = document.getElementById("businessFields");
   const dataBrokerFields = document.getElementById("dataBrokerFields");
 
-  const businessNameInput = document.getElementById("business_name");
+  const businessNameInput = document.getElementById("business_name"); // may not exist; safe-guarded
   const businessDescInput = document.getElementById("business_description");
   const purposeInput = document.getElementById("purpose");
 
@@ -100,6 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ============================================================
+  // USER DASHBOARD – BROWSE SERVICES + BOOK APPOINTMENT
+  // ============================================================
+
   // ---------- Browse Services search on User Dashboard ----------
   const serviceSearchInput = document.getElementById("serviceSearch");
   const servicesTable = document.getElementById("servicesTable");
@@ -112,16 +116,97 @@ document.addEventListener("DOMContentLoaded", () => {
 
       rows.forEach((row) => {
         const text = row.textContent.toLowerCase();
-        if (!query || text.includes(query)) {
-          row.style.display = "";
-        } else {
-          row.style.display = "none";
-        }
+        row.style.display = !query || text.includes(query) ? "" : "none";
       });
     });
   }
-  // ---------- Search + Add/Edit Service on Business Dashboard ----------
 
+  // ---------- User: Create Appointment (Book) ----------
+  const createAppointmentPanel = document.getElementById(
+    "createAppointmentPanel"
+  );
+  const createAppointmentForm = document.getElementById(
+    "createAppointmentForm"
+  );
+  const bookServiceIdInput = document.getElementById("book_service_id");
+  const bookServiceSummary = document.getElementById("book_service_summary");
+  const cancelCreateAppointmentBtn = document.getElementById(
+    "cancelCreateAppointment"
+  );
+
+  const openCreateAppointment = (row) => {
+    if (!row || !createAppointmentPanel || !createAppointmentForm) return;
+
+    const serviceId = row.getAttribute("data-service-id") || "";
+    const cells = row.children;
+    // Columns: 0 = Business, 1 = Service, 2 = Price, 3 = Duration
+    const business = cells[0].textContent.trim();
+    const service = cells[1].textContent.trim();
+    const price = cells[2].textContent.trim();
+    const duration = cells[3].textContent.trim();
+
+    const summary = `${service} at ${business} – ${price}, ${duration} minutes`;
+
+    if (bookServiceIdInput) bookServiceIdInput.value = serviceId;
+    if (bookServiceSummary) bookServiceSummary.textContent = summary;
+
+    createAppointmentForm.reset(); // clear date/time/note
+    // keep summary text
+    createAppointmentPanel.classList.remove("hidden");
+    createAppointmentPanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const closeCreateAppointment = () => {
+    if (!createAppointmentPanel || !createAppointmentForm) return;
+    createAppointmentPanel.classList.add("hidden");
+    createAppointmentForm.reset();
+    if (bookServiceSummary) bookServiceSummary.textContent = "";
+  };
+
+  // When user clicks "Book" in Browse Services
+  if (servicesTable && createAppointmentPanel && createAppointmentForm) {
+    servicesTable.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target.classList.contains("btn-book")) {
+        const row = target.closest("tr");
+        openCreateAppointment(row);
+      }
+    });
+  }
+
+  if (createAppointmentForm) {
+    createAppointmentForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const date = document.getElementById("book_date").value;
+      const time = document.getElementById("book_time").value;
+
+      if (!date || !time) {
+        alert("Please choose both date and time.");
+        return;
+      }
+
+      // In a real app, this would send the booking request to the backend
+      alert("Appointment booking request submitted (demo).");
+      closeCreateAppointment();
+    });
+  }
+
+  if (cancelCreateAppointmentBtn) {
+    cancelCreateAppointmentBtn.addEventListener(
+      "click",
+      closeCreateAppointment
+    );
+  }
+
+  // ============================================================
+  // BUSINESS DASHBOARD – SERVICES + AVAILABILITY
+  // ============================================================
+
+  // ---------- Search + Add/Edit Service on Business Dashboard ----------
   const businessServiceSearchInput = document.getElementById(
     "businessServiceSearch"
   );
@@ -133,6 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const serviceForm = document.getElementById("serviceForm");
   const cancelServiceFormBtn = document.getElementById("cancelServiceForm");
   const serviceFormTitle = document.getElementById("serviceFormTitle");
+  const svcCategoryInput = document.getElementById("svc_category");
 
   let serviceFormMode = null; // "add" or "edit"
   let currentServiceRow = null; // row being edited (if any)
@@ -157,20 +243,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (mode === "add") {
       serviceFormTitle.textContent = "Add New Service";
       serviceForm.reset();
+      if (svcCategoryInput) svcCategoryInput.value = "";
       document.getElementById("svc_status").value = "Active";
     } else if (mode === "edit" && row) {
       serviceFormTitle.textContent = "Edit Service";
-      // Read values from the row
       const cells = row.children;
+      // Table columns: 0 = name, 1 = category, 2 = price, 3 = duration, 4 = status
       document.getElementById("svc_name").value = cells[0].textContent.trim();
-      document.getElementById("svc_price").value = cells[1].textContent
+      if (svcCategoryInput) {
+        svcCategoryInput.value = cells[1].textContent.trim();
+      }
+      document.getElementById("svc_price").value = cells[2].textContent
         .replace("$", "")
         .trim();
       document.getElementById("svc_duration").value =
-        cells[2].textContent.trim();
+        cells[3].textContent.trim();
       document.getElementById("svc_status").value =
-        cells[3].textContent.trim() || "Active";
-      // Description is not shown in table in this demo, so leave as-is
+        cells[4].textContent.trim() || "Active";
     }
 
     serviceFormPanel.classList.remove("hidden");
@@ -208,12 +297,15 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
 
       const name = document.getElementById("svc_name").value.trim();
+      const category = svcCategoryInput
+        ? svcCategoryInput.value.trim()
+        : "";
       const price = document.getElementById("svc_price").value.trim();
       const duration = document.getElementById("svc_duration").value.trim();
       const status = document.getElementById("svc_status").value;
 
-      if (!name || !price || !duration || !status) {
-        alert("Please fill in all required fields.");
+      if (!name || !category || !price || !duration || !status) {
+        alert("Please fill in all required fields (including category).");
         return;
       }
 
@@ -223,31 +315,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const tbody = businessServicesTable.querySelector("tbody");
         const newRow = document.createElement("tr");
         newRow.innerHTML = `
-                    <td>${name}</td>
-                    <td>${formattedPrice}</td>
-                    <td>${duration}</td>
-                    <td>${status}</td>
-                    <td>
-                        <button class="btn btn-small btn-outline btn-edit-service">Edit</button>
-                        <button class="btn btn-small">${
-                          status === "Active" ? "Deactivate" : "Activate"
-                        }</button>
-                    </td>
-                `;
+          <td>${name}</td>
+          <td>${category}</td>
+          <td>${formattedPrice}</td>
+          <td>${duration}</td>
+          <td>${status}</td>
+          <td>
+            <button class="btn btn-small btn-outline btn-edit-service">Edit</button>
+            <button class="btn btn-small">${
+              status === "Active" ? "Deactivate" : "Activate"
+            }</button>
+          </td>
+        `;
         tbody.appendChild(newRow);
       } else if (serviceFormMode === "edit" && currentServiceRow) {
         const cells = currentServiceRow.children;
         cells[0].textContent = name;
-        cells[1].textContent = formattedPrice;
-        cells[2].textContent = duration;
-        cells[3].textContent = status;
+        cells[1].textContent = category;
+        cells[2].textContent = formattedPrice;
+        cells[3].textContent = duration;
+        cells[4].textContent = status;
       }
 
       closeServiceForm();
     });
   }
-  // ---------- Availability / Schedule Add/Edit/Delete on Business Dashboard ----------
 
+  // ---------- Availability / Schedule Add/Edit/Delete on Business Dashboard ----------
   const availabilityTable = document.getElementById("availabilityTable");
   const btnAddAvailability = document.getElementById("btnAddAvailability");
   const availabilityFormPanel = document.getElementById(
@@ -348,7 +442,10 @@ document.addEventListener("DOMContentLoaded", () => {
           </td>
         `;
         tbody.appendChild(newRow);
-      } else if (availabilityFormMode === "edit" && currentAvailabilityRow) {
+      } else if (
+        availabilityFormMode === "edit" &&
+        currentAvailabilityRow
+      ) {
         const cells = currentAvailabilityRow.children;
         cells[0].textContent = day;
         cells[1].textContent = start;
@@ -359,7 +456,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------- Data Broker: Business Reports filters ----------
+  // ============================================================
+  // DATA BROKER – REPORT FILTERS
+  // ============================================================
 
   const reportsTable = document.getElementById("businessReportsTable");
   const btnApplyReportFilters = document.getElementById(
@@ -369,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "btnClearReportFilters"
   );
 
-  const filterBusinessInput = document.getElementById("filter_business");
+  const filterBusinessInput = document.getElementById("filter_business"); // Category
   const filterCityInput = document.getElementById("filter_city");
   const filterCountryInput = document.getElementById("filter_country");
   const filterStartInput = document.getElementById("filter_start_date");
@@ -391,13 +490,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const rowMatchesReportFilters = (row) => {
     const cells = row.children;
 
-    const business = cells[0].textContent.toLowerCase();
+    const firstCol = cells[0].textContent.toLowerCase(); // Category
     const city = cells[1].textContent.toLowerCase();
     const country = cells[2].textContent.toLowerCase();
     const periodText = cells[3].textContent.trim();
     const totalApptsText = cells[4].textContent.trim();
 
-    const qBusiness = (filterBusinessInput?.value || "").toLowerCase().trim();
+    const qFirst = (filterBusinessInput?.value || "").toLowerCase().trim();
     const qCity = (filterCityInput?.value || "").toLowerCase().trim();
     const qCountry = (filterCountryInput?.value || "").toLowerCase().trim();
     const qMinAppts = filterMinApptsInput?.value
@@ -407,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const qEnd = filterEndInput?.value || null;
 
     // Text filters
-    if (qBusiness && !business.includes(qBusiness)) return false;
+    if (qFirst && !firstCol.includes(qFirst)) return false;
     if (qCity && !city.includes(qCity)) return false;
     if (qCountry && !country.includes(qCountry)) return false;
 
@@ -418,7 +517,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Date range vs "Report Period"
     if (qStart || qEnd) {
       const { start, end } = parsePeriod(periodText);
-      // Simple checks using ISO date strings
       if (qStart && (!start || start < qStart)) return false;
       if (qEnd && (!end || end > qEnd)) return false;
     }
@@ -455,5 +553,164 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (btnClearReportFilters) {
     btnClearReportFilters.addEventListener("click", clearReportFilters);
+  }
+
+  // ============================================================
+  // USER – RESCHEDULE APPOINTMENT (demo UI only)
+  // ============================================================
+
+  const appointmentsTable = document.getElementById("appointmentsTable");
+  const rescheduleFormPanel = document.getElementById("rescheduleFormPanel");
+  const rescheduleForm = document.getElementById("rescheduleForm");
+  const reschedApptIdInput = document.getElementById("resched_appt_id");
+  const reschedApptSummary = document.getElementById("resched_appt_summary");
+  const cancelRescheduleFormBtn = document.getElementById(
+    "cancelRescheduleForm"
+  );
+
+  const openRescheduleForm = (row) => {
+    if (!row || !rescheduleFormPanel) return;
+
+    const apptId = row.getAttribute("data-appt-id") || "";
+    const cells = row.children;
+
+    const summaryText =
+      `${cells[0].textContent.trim()} at ${cells[1].textContent.trim()} – ` +
+      `${cells[2].textContent.trim()} (${cells[3].textContent.trim()})`;
+
+    if (reschedApptIdInput) reschedApptIdInput.value = apptId;
+    if (reschedApptSummary) reschedApptSummary.textContent = summaryText;
+
+    rescheduleFormPanel.classList.remove("hidden");
+    rescheduleFormPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const closeRescheduleForm = () => {
+    if (!rescheduleFormPanel || !rescheduleForm) return;
+    rescheduleFormPanel.classList.add("hidden");
+    rescheduleForm.reset();
+    if (reschedApptSummary) reschedApptSummary.textContent = "";
+  };
+
+  if (appointmentsTable) {
+    appointmentsTable.addEventListener("click", (event) => {
+      const target = event.target;
+
+      // open reschedule form
+      if (target.classList.contains("btn-reschedule")) {
+        const row = target.closest("tr");
+        openRescheduleForm(row);
+      }
+
+      // simple cancel action demo
+      if (target.classList.contains("btn-cancel-appt")) {
+        const row = target.closest("tr");
+        const serviceName = row
+          ? row.children[3].textContent.trim()
+          : "appointment";
+        if (confirm(`Send cancel request for this ${serviceName}? (demo)`)) {
+          alert("Cancel request sent to business (demo only).");
+        }
+      }
+    });
+  }
+
+  if (rescheduleForm) {
+    rescheduleForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const date = document.getElementById("resched_date").value;
+      const time = document.getElementById("resched_time").value;
+
+      if (!date || !time) {
+        alert("Please choose both date and time.");
+        return;
+      }
+
+      // In real app, send request to backend here
+      alert("Reschedule request submitted (demo).");
+      closeRescheduleForm();
+    });
+  }
+
+  if (cancelRescheduleFormBtn) {
+    cancelRescheduleFormBtn.addEventListener("click", closeRescheduleForm);
+  }
+
+  // ============================================================
+  // MESSAGES – SEND + VIEW DETAILS (User/others where present)
+  // ============================================================
+
+  const messageForm = document.getElementById("messageForm");
+  const messagesTable = document.getElementById("messagesTable");
+  const detailPanel = document.getElementById("messageDetailPanel");
+
+  // Send message (demo)
+  if (messageForm && messagesTable) {
+    messageForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const to = document.getElementById("msg_recipient").value.trim();
+      const subject = document.getElementById("msg_subject").value.trim();
+      const body = document.getElementById("msg_body").value.trim();
+
+      if (!to || !subject || !body) {
+        alert("Please fill in all message fields.");
+        return;
+      }
+
+      const tbody = messagesTable.querySelector("tbody");
+      const now = new Date().toISOString().slice(0, 10); // yyyy-mm-dd
+
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td>${now}</td>
+        <td>Me</td>
+        <td>${to}</td>
+        <td>
+          <button type="button"
+                  class="link-button msg-subject"
+                  data-body="${body.replace(/"/g, "&quot;")}">
+            ${subject}
+          </button>
+        </td>
+        <td>Sent</td>
+      `;
+      tbody.appendChild(newRow);
+
+      alert("Message sent (demo only).");
+      messageForm.reset();
+    });
+  }
+
+  // Click subject -> show detail panel
+  if (messagesTable && detailPanel) {
+    const detailSubject = document.getElementById("detailSubject");
+    const detailFrom = document.getElementById("detailFrom");
+    const detailTo = document.getElementById("detailTo");
+    const detailDate = document.getElementById("detailDate");
+    const detailBody = document.getElementById("detailBody");
+
+    messagesTable.addEventListener("click", (event) => {
+      const btn = event.target.closest(".msg-subject");
+      if (!btn) return;
+
+      const row = btn.closest("tr");
+      const cells = row.children;
+
+      const date = cells[0].textContent.trim();
+      const from = cells[1].textContent.trim();
+      const to = cells[2].textContent.trim();
+      const subject = btn.textContent.trim();
+      const body = btn.dataset.body || "(No message body in demo)";
+
+      detailSubject.textContent = subject;
+      detailFrom.textContent = from;
+      detailTo.textContent = to;
+      detailDate.textContent = date;
+      detailBody.textContent = body;
+
+      detailPanel.classList.remove("hidden");
+      detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 });

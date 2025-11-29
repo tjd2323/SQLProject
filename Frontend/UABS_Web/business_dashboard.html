@@ -22,10 +22,6 @@
       <!-- Business profile -->
       <section class="card">
         <h2>Business Profile</h2>
-        <!-- <p class="hint">
-          This information is stored in <b>Generic_Account</b> and
-          <b>Buisness_Profile</b>.
-        </p> -->
 
         <!-- Example data; backend will replace with real values -->
         <div class="profile-grid">
@@ -64,9 +60,6 @@
             Add New Service
           </button>
         </div>
-        <!-- <p class="hint">
-        This corresponds to the <b>Service</b> table filtered by the current business_account_id.
-    </p> -->
 
         <!-- Search bar (same as user dashboard style) -->
         <div class="search-row">
@@ -85,6 +78,7 @@
           <thead>
             <tr>
               <th>Service Name</th>
+              <th>Category</th>
               <th>Price</th>
               <th>Duration (min)</th>
               <th>Status</th>
@@ -95,6 +89,7 @@
             <!-- Example service rows -->
             <tr>
               <td>Dental Checkup</td>
+              <td>Dental</td>
               <td>$80</td>
               <td>30</td>
               <td>Active</td>
@@ -107,6 +102,7 @@
             </tr>
             <tr>
               <td>Teeth Cleaning</td>
+              <td>Dental</td>
               <td>$120</td>
               <td>45</td>
               <td>Inactive</td>
@@ -128,6 +124,17 @@
               <div class="form-group">
                 <label for="svc_name">Service Name *</label>
                 <input type="text" id="svc_name" name="svc_name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="svc_category">Category *</label>
+                <input
+                  type="text"
+                  id="svc_category"
+                  name="svc_category"
+                  required
+                  placeholder="e.g., Dental, Hair, Wellness"
+                />
               </div>
 
               <div class="form-group">
@@ -187,11 +194,17 @@
 
       <!-- Appointments for this business -->
       <section class="card">
-        <h2>Appointments for My Services</h2>
-        <!-- <p class="hint">
-          Data from <b>Appointment</b> joined with <b>Service</b> and customer
-          accounts where <i>Service.business_account_id = current business</i>.
-        </p> -->
+        <div class="card-header-row">
+          <h2>Appointments for My Services</h2>
+          <!-- Simple demo button for business report -->
+          <button
+            class="btn btn-small"
+            type="button"
+            onclick="alert('Business report requested for your appointments (demo only). The backend will generate the real report based on this action.')"
+          >
+            Request Business Report
+          </button>
+        </div>
 
         <table class="uabs-table">
           <thead>
@@ -244,11 +257,6 @@
             Add Availability Block
           </button>
         </div>
-
-        <p class="hint">
-          Represents rows in the <b>Availability_block</b> table for this
-          business.
-        </p>
 
         <table class="uabs-table" id="availabilityTable">
           <thead>
@@ -335,6 +343,108 @@
               >
                 Cancel
               </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Messages -->
+      <section class="card">
+        <h2>Messages</h2>
+        <p class="hint">
+          View messages related to your business and send new ones to customers or admin.
+        </p>
+
+        <!-- Messages table -->
+        <table class="uabs-table" id="messagesTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Subject</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example row -->
+            <tr>
+              <td>2025-11-10</td>
+              <td>System</td>
+              <td>OSU Dental Care</td>
+              <td>
+                <button
+                  type="button"
+                  class="link-button msg-subject"
+                  data-body="Welcome to the UABS messaging system for businesses."
+                >
+                  Welcome
+                </button>
+              </td>
+              <td>Read</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Message detail panel -->
+        <div id="messageDetailPanel" class="card-subsection hidden">
+          <h3>Message Detail</h3>
+
+          <p><strong>Subject:</strong> <span id="detailSubject"></span></p>
+          <p><strong>From:</strong> <span id="detailFrom"></span></p>
+          <p><strong>To:</strong> <span id="detailTo"></span></p>
+          <p><strong>Date:</strong> <span id="detailDate"></span></p>
+
+          <div class="message-body-box">
+            <p id="detailBody"></p>
+          </div>
+        </div>
+
+        <!-- Send new message -->
+        <div class="card-subsection">
+          <h3>Send a New Message</h3>
+          <form id="messageForm" class="form-layout">
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="msg_recipient">
+                  Recipient <span class="required-star">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="msg_recipient"
+                  name="msg_recipient"
+                  placeholder=""
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="msg_subject">
+                  Subject <span class="required-star">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="msg_subject"
+                  name="msg_subject"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="msg_body">
+                Message <span class="required-star">*</span>
+              </label>
+              <textarea
+                id="msg_body"
+                name="msg_body"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-accent">Send Message</button>
             </div>
           </form>
         </div>

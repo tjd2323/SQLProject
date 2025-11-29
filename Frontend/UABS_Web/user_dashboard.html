@@ -1,195 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>UABS - User Dashboard</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <header class="main-header">
-      <h1>Universal Appointment Booking System (UABS)</h1>
-      <p class="tagline">User Dashboard – View and manage your appointments.</p>
-    </header>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="main-header">
+    <h1>Universal Appointment Booking System (UABS)</h1>
+    <p class="tagline">User Dashboard – Book and manage your appointments.</p>
+</header>
 
-    <nav class="top-nav">
-      <a href="index.html">Home</a>
-      <span class="nav-label">Logged in as: User</span>
-    </nav>
+<nav class="top-nav">
+    <a href="index.html">Home</a>
+    <span class="nav-label">Logged in as: Customer</span>
+</nav>
 
-    <main class="page-container stacked-dashboard">
-      <!-- Profile card -->
-      <section class="card">
-        <h2>Your Profile</h2>
-        <!-- <p class="hint">
-          This information comes from the Generic_Account table.
-        </p> -->
+<main class="page-container stacked-dashboard">
 
-        <!-- Static example data for now – your teammate can fill with real values -->
+    <!-- User profile -->
+    <section class="card">
+        <h2>My Profile</h2>
         <div class="profile-grid">
-          <div>
-            <strong>Full Name:</strong>
-            <span>John Doe</span>
-          </div>
-          <div>
-            <strong>Email:</strong>
-            <span>john.doe@example.com</span>
-          </div>
-          <div>
-            <strong>Phone:</strong>
-            <span>+1 (555) 123-4567</span>
-          </div>
-          <div>
-            <strong>City:</strong>
-            <span>Columbus</span>
-          </div>
-          <div>
-            <strong>Country:</strong>
-            <span>USA</span>
-          </div>
+            <div>
+                <strong>Name:</strong>
+                <span>John Doe</span>
+            </div>
+            <div>
+                <strong>Email:</strong>
+                <span>john.doe@example.com</span>
+            </div>
+            <div>
+                <strong>Phone:</strong>
+                <span>+1 (555) 123-4567</span>
+            </div>
+            <div>
+                <strong>City:</strong>
+                <span>Columbus</span>
+            </div>
+            <div>
+                <strong>Country:</strong>
+                <span>USA</span>
+            </div>
         </div>
-      </section>
+    </section>
 
-      <!-- Browse services -->
-      <section class="card">
-    <h2>Browse Services</h2>
-    <!-- <p class="hint">
-        These rows represent data from the <b>Service</b> table joined with business profiles.
-        Use the search box to quickly find a service or business.
-    </p> -->
+    <!-- Browse services -->
+    <section class="card">
+        <h2>Browse Services</h2>
 
-    <!-- Simple search bar -->
-    <div class="search-row">
-        <label for="serviceSearch" class="search-label">Search:</label>
-        <input type="text"
-               id="serviceSearch"
-               class="search-input"
-               placeholder="Search here!">
-    </div>
+        <div class="search-row">
+            <label for="serviceSearch" class="search-label">Search:</label>
+            <input
+                type="text"
+                id="serviceSearch"
+                class="search-input"
+                placeholder="Search by business or service name..."
+            />
+        </div>
 
-    <table class="uabs-table" id="servicesTable">
-        <thead>
-        <tr>
-            <th>Business</th>
-            <th>Service</th>
-            <th>Price</th>
-            <th>Duration (min)</th>
-            <th>Status</th>
-            <th>Book</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Example rows only; backend will fill this from the database -->
-        <tr>
-            <td>OSU Dental Care</td>
-            <td>Dental Checkup</td>
-            <td>$80</td>
-            <td>30</td>
-            <td>Active</td>
-            <td><button class="btn btn-small">Book</button></td>
-        </tr>
-        <tr>
-            <td>Quick Cuts Salon</td>
-            <td>Haircut</td>
-            <td>$25</td>
-            <td>20</td>
-            <td>Active</td>
-            <td><button class="btn btn-small">Book</button></td>
-        </tr>
-        </tbody>
-    </table>
-</section>
+        <table class="uabs-table" id="servicesTable">
+            <thead>
+            <tr>
+                <th>Business</th>
+                <th>Service</th>
+                <th>Price</th>
+                <th>Duration (min)</th>
+                <th>Status</th>
+                <th>Book</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-service-id="1">
+                <td>OSU Dental Care</td>
+                <td>Dental Checkup</td>
+                <td>$80</td>
+                <td>30</td>
+                <td>Active</td>
+                <td>
+                    <button type="button" class="btn btn-small btn-book">
+                        Book
+                    </button>
+                </td>
+            </tr>
+            <tr data-service-id="2">
+                <td>Quick Cuts Salon</td>
+                <td>Haircut</td>
+                <td>$25</td>
+                <td>20</td>
+                <td>Active</td>
+                <td>
+                    <button type="button" class="btn btn-small btn-book">
+                        Book
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
+        <!-- Create Appointment form (shown when clicking Book) -->
+        <div id="createAppointmentPanel" class="card-subsection hidden">
+            <h3>Create Appointment</h3>
+            <p class="hint">
+                Choose a date and time for this service. This will send a booking request to the business.
+            </p>
 
-      <!-- My appointments -->
-      <section class="card">
+            <form id="createAppointmentForm" class="form-layout">
+                <!-- In a real app, this would be a service_id -->
+                <input type="hidden" id="book_service_id" name="book_service_id">
+
+                <div class="form-grid-2col">
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Selected Service</label>
+                        <div id="book_service_summary" class="readonly-box">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="book_date">
+                            Date <span class="required-star">*</span>
+                        </label>
+                        <input type="date" id="book_date" name="book_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="book_time">
+                            Time <span class="required-star">*</span>
+                        </label>
+                        <input type="time" id="book_time" name="book_time" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="book_note">Note (optional)</label>
+                    <textarea
+                        id="book_note"
+                        name="book_note"
+                        rows="3"
+                        placeholder=""
+                    ></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-accent">
+                        Confirm Booking
+                    </button>
+                    <button type="button" class="btn btn-outline" id="cancelCreateAppointment">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- My appointments -->
+    <section class="card">
         <h2>My Appointments</h2>
-        <!-- <p class="hint">
-          This corresponds to the <b>Appointment</b> table joined with
-          <b>Service</b> and business info.
-        </p> -->
 
-        <table class="uabs-table">
+        <table class="uabs-table" id="appointmentsTable">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Business</th>
+                <th>Service</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-appt-id="1">
+                <td>2025-12-01</td>
+                <td>10:00 AM</td>
+                <td>OSU Dental Care</td>
+                <td>Dental Checkup</td>
+                <td>Scheduled</td>
+                <td>
+                    <button class="btn btn-small btn-outline btn-reschedule">
+                        Reschedule
+                    </button>
+                    <button class="btn btn-small btn-outline btn-cancel-appt">
+                        Cancel
+                    </button>
+                </td>
+            </tr>
+            <tr data-appt-id="2">
+                <td>2025-11-20</td>
+                <td>3:00 PM</td>
+                <td>Quick Cuts Salon</td>
+                <td>Haircut</td>
+                <td>Completed</td>
+                <td>
+                    <button class="btn btn-small btn-outline" disabled>
+                        Completed
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Reschedule request form -->
+        <div id="rescheduleFormPanel" class="card-subsection hidden">
+            <h3>Request Reschedule</h3>
+            <p class="hint">
+                Choose a new date and time for your appointment. The business will
+                review and approve or reject the request.
+            </p>
+
+            <form id="rescheduleForm" class="form-layout">
+                <input type="hidden" id="resched_appt_id" name="resched_appt_id">
+
+                <div class="form-grid-2col">
+                    <div class="form-group">
+                        <label for="resched_date">New Date <span class="required-star">*</span></label>
+                        <input type="date" id="resched_date" name="resched_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resched_time">New Time <span class="required-star">*</span></label>
+                        <input type="time" id="resched_time" name="resched_time" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Appointment</label>
+                    <div id="resched_appt_summary" class="readonly-box">
+                        <!-- filled by JS -->
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-accent">
+                        Submit Reschedule Request
+                    </button>
+                    <button type="button" class="btn btn-outline" id="cancelRescheduleForm">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Messages -->
+    <section class="card">
+        <h2>Messages</h2>
+        <p class="hint">
+            View messages related to your appointments and send new ones to businesses or support.
+        </p>
+
+        <table class="uabs-table" id="messagesTable">
           <thead>
             <tr>
               <th>Date</th>
-              <th>Time</th>
-              <th>Business</th>
-              <th>Service</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Subject</th>
               <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Example data -->
             <tr>
-              <td>2025-12-01</td>
-              <td>10:00 AM</td>
+              <td>2025-11-10</td>
               <td>OSU Dental Care</td>
-              <td>Dental Checkup</td>
-              <td>Scheduled</td>
+              <td>John Doe</td>
               <td>
-                <div class="table-actions">
-                  <button class="btn btn-small btn-outline">Reschedule</button>
-                  <button class="btn btn-small">Cancel</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2025-11-15</td>
-              <td>2:30 PM</td>
-              <td>Quick Cuts Salon</td>
-              <td>Haircut</td>
-              <td>Completed</td>
-              <td>
-                <button class="btn btn-small btn-outline" disabled>
-                  Completed
+                <button type="button"
+                        class="link-button msg-subject"
+                        data-body="Your appointment is confirmed for 10:00 AM.">
+                  Appointment confirmed
                 </button>
               </td>
+              <td>Read</td>
             </tr>
-          </tbody>
-        </table>
-      </section>
 
-      <!-- Messages -->
-      <section class="card">
-        <h2>Messages</h2>
-        <!-- <p class="hint">
-          These are messages linked to your appointments (Message +
-          Appointment_Has_Message tables).
-        </p> -->
-
-        <table class="uabs-table">
-          <thead>
             <tr>
-              <th>Appointment</th>
-              <th>From</th>
-              <th>Message</th>
-              <th>Sent At</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Example messages -->
-            <tr>
-              <td>Dental Checkup – 2025-12-01 10:00</td>
-              <td>OSU Dental Care</td>
-              <td>Please arrive 10 minutes early to fill out forms.</td>
-              <td>2025-11-30 09:00</td>
-            </tr>
-            <tr>
-              <td>Haircut – 2025-11-15 14:30</td>
+              <td>2025-11-05</td>
+              <td>John Doe</td>
               <td>Quick Cuts Salon</td>
-              <td>Your appointment has been confirmed.</td>
-              <td>2025-11-14 16:45</td>
+              <td>
+                <button type="button"
+                        class="link-button msg-subject"
+                        data-body="I would like to reschedule to next Monday at 3 PM.">
+                  Reschedule request
+                </button>
+              </td>
+              <td>Pending</td>
             </tr>
           </tbody>
         </table>
-      </section>
-    </main>
 
-    <footer class="main-footer">
-      <p>&copy; 2025 UABS Project</p>
-    </footer>
+        <div id="messageDetailPanel" class="card-subsection hidden">
+          <h3>Message Detail</h3>
 
-    <script src="js/main.js"></script>
-  </body>
+          <p><strong>Subject:</strong> <span id="detailSubject"></span></p>
+          <p><strong>From:</strong> <span id="detailFrom"></span></p>
+          <p><strong>To:</strong> <span id="detailTo"></span></p>
+          <p><strong>Date:</strong> <span id="detailDate"></span></p>
+
+          <div class="message-body-box">
+            <p id="detailBody"></p>
+          </div>
+        </div>
+
+        <div class="card-subsection">
+            <h3>Send a New Message</h3>
+            <form id="messageForm" class="form-layout">
+                <div class="form-grid-2col">
+                    <div class="form-group">
+                        <label for="msg_recipient">
+                            Recipient <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="msg_recipient" name="msg_recipient"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="msg_subject">
+                            Subject <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="msg_subject" name="msg_subject" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="msg_body">
+                        Message <span class="required-star">*</span>
+                    </label>
+                    <textarea id="msg_body" name="msg_body" rows="3" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-accent">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<footer class="main-footer">
+    <p>&copy; 2025 UABS Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
 </html>
