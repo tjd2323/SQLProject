@@ -24,7 +24,7 @@ USE UABS;
    CREATE Table DataBroker_Profile
    (Account_id int,
     Access_status bool not null,
-    Purpose varchar(1000),
+    Purpose varchar(1500),
     primary key(Account_id),
     foreign key(Account_id) references Generic_Account(Account_id) on delete cascade on update cascade);
    
@@ -34,6 +34,7 @@ USE UABS;
    receiver int,
    body varchar(10000),
    send_at timestamp,
+   subjectName varchar(100) default 'default subject',
    primary key(message_id),
    foreign key(sender) references Generic_Account(Account_id) on delete cascade on update cascade,
    foreign key(receiver) references Generic_Account(Account_id) on delete cascade on update cascade);
@@ -275,20 +276,94 @@ USE UABS;
     insert into Appointment_has_message values(11, 3);
     insert into Appointment_has_message values(4, 5);
     
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'M-Su', '11:00:00', '23:59:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (22, 'M-F', '10:00:00', '22:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (23, 'M-TH', '11:00:00', '20:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (24, 'M-F', '11:00:00', '22:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'M-Su', '9:00:00', '17:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'M-Su', '9:00:00', '23:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'M-Su', '11:00:00', '17:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (28, 'M-F', '9:00:00', '17:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'M-Su', '10:00:00', '22:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'M-Sa', '10:00:00', '18:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'M-Su', '10:00:00', '22:00:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'M-Su', '8:00:00', '23:59:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'M-Su', '8:00:00', '23:59:00');
-    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'M-Su', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Monday', '11:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (22, 'Monday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (23, 'Monday', '11:00:00', '20:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (24, 'Monday', '11:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Monday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Monday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Monday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (28, 'Monday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Monday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'Monday', '10:00:00', '18:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Monday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Monday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Monday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Monday', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Tuesday', '11:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Wednesday', '11:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Thursday', '11:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Friday', '11:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Saturday', '11:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (21, 'Sunday', '11:00:00', '23:59:00');
+	insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (22, 'Tuesday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (22, 'Wednesday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (22, 'Thursday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (22, 'Friday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (23, 'Tuesday', '11:00:00', '20:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (23, 'Wednesday', '11:00:00', '20:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (23, 'Thursday', '11:00:00', '20:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (24, 'Tuesday', '11:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (24, 'Wednesday', '11:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (24, 'Thursday', '11:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (24, 'Friday', '11:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Tuesday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Wednesday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Thursday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Friday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Saturday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (25, 'Sunday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Tuesday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Wednesday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Thursday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Friday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Saturday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (26, 'Sunday', '9:00:00', '23:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Tuesday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Wednesday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Thursday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Friday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Saturday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Sunday', '11:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (28, 'Tuesday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (28, 'Wednesday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (28, 'Thursday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (28, 'Friday', '9:00:00', '17:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Tuesday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Wednesday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Thursday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Friday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Saturday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (29, 'Sunday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'Tuesday', '10:00:00', '18:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'Wednesday', '10:00:00', '18:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'Thursday', '10:00:00', '18:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'Friday', '10:00:00', '18:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (30, 'Saturday', '10:00:00', '18:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Tuesday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Wednesday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Thursday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Friday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Saturday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (31, 'Sunday', '10:00:00', '22:00:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Tuesday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Wednesday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Thursday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Friday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Saturday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (32, 'Sunday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Tuesday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Wednesday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Thursday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Friday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Saturday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (33, 'Sunday', '8:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Tuesday', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Wednesday', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Thursday', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Friday', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Saturday', '21:00:00', '23:59:00');
+    insert into Availability_block(account_id, recurrence_rule, start_time, end_time) values (27, 'Sunday', '21:00:00', '23:59:00');
     
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (21, 'default report for Jack Daniels', '2023-09-15 17:00:00', '2023-08-15 17:00:00', '2023-09-15 17:00:00');
     insert into Buisness_Report(account_id, metric_summary, generated_at, period_start, period_end) values (22, 'default report for Micro Wave Co.', '2023-10-15 17:00:00', '2023-09-15 17:00:00', '2023-10-15 17:00:00');

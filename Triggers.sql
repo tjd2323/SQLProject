@@ -48,6 +48,52 @@ SET MESSAGE_TEXT = 'Either service is inactive or buisness is not verified.';
 END IF;
 END;
 //
+
+CREATE TRIGGER ValidAppointment
+BEFORE INSERT ON Appointment
+FOR EACH ROW
+BEGIN
+	DECLARE dayOfWeek int default 0;
+    DECLARE dayName varchar(300);
+    set dayOfWeek = DAYOFWEEK(new.startTime);
+    set dayName = Case
+    when dayOfWeek = 1 then 'Monday'
+    when dayOfWeek = 2 then 'Tuesday'
+    when dayOfWeek = 3 then 'Wednesday'
+    when dayOfWeek = 4 then 'Thursday'
+    when dayOfWeek = 5 then 'Friday'
+    when dayOfWeek = 6 then 'Saturday'
+    else 'Sunday' end;
+	IF NOT EXISTS(Select start_time, end_time, recurrence_rule from service inner join buisness_profile using(account_id) inner join availability_block using(account_id)
+	where dayName like recurrence_rule and time(new.startTime) between start_time and end_time) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Service not offered at that time.';
+	END IF;
+END;
+//
+
+CREATE TRIGGER ValidAppointmentUpdate
+BEFORE Update ON Appointment
+FOR EACH ROW
+BEGIN
+	DECLARE dayOfWeek int default 0;
+    DECLARE dayName varchar(300);
+    set dayOfWeek = DAYOFWEEK(new.startTime);
+    set dayName = Case
+    when dayOfWeek = 1 then 'Monday'
+    when dayOfWeek = 2 then 'Tuesday'
+    when dayOfWeek = 3 then 'Wednesday'
+    when dayOfWeek = 4 then 'Thursday'
+    when dayOfWeek = 5 then 'Friday'
+    when dayOfWeek = 6 then 'Saturday'
+    else 'Sunday' end;
+	IF NOT EXISTS(Select start_time, end_time, recurrence_rule from service inner join buisness_profile using(account_id) inner join availability_block using(account_id)
+	where dayName like recurrence_rule and time(new.startTime) between start_time and end_time) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Service not offered at that time.';
+	END IF;
+END;
+//
 DELIMITER ;
 
 
