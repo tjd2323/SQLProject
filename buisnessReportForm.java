@@ -69,11 +69,14 @@ double totalSum = cstmt.getDouble(4);
 
 double avg = totalSum / totalCount;
 // need to make this format for business report
+try (PrintWriter out = response.getWriter())
+{
 out.println("<tr>");
 out.println("	<td>"+startDate+" to "+endDate+"</td>");
 out.println("	<td>"+totalCount+"</td>");
 out.println("	<td>"+avg+"</td>");
 out.println("</tr>");
+}
 //STEP 6: Clean‐up environment
 rs.close();
 cstmt.close();

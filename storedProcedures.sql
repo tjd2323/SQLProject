@@ -35,21 +35,21 @@ END //
 -- call to get all services
 CREATE PROCEDURE displayServicesUser()
 BEGIN
- SELECT generic_account.full_name as buisness_name, service.full_name as service_name, price, duration_min, service_status
+ SELECT generic_account.full_name as buisness_name, service.full_name as service_name, price, duration_min, service_status, service_id
     from service inner join Buisness_profile using(account_id) inner join generic_account using(account_id);
 END //
 -- call to get all appointments for user with email
 CREATE PROCEDURE displayAppointmentsUser(IN email2 char(50))
 BEGIN
-	WITH t1 as (SELECT service.account_id as myaccount_id, startTime, service.full_name as service_name, appt_status from appointment inner join generic_account using(account_id) inner join service using(service_id) where email like email2)
-    SELECT startTime, generic_account.full_name as buisness_name, service_name, appt_status
+	WITH t1 as (SELECT service.account_id as myaccount_id, startTime, service.full_name as service_name, appt_status, appt_id from appointment inner join generic_account using(account_id) inner join service using(service_id) where email like email2)
+    SELECT startTime, generic_account.full_name as buisness_name, service_name, appt_status, appt_id
     from t1 inner join buisness_profile on(t1.myaccount_id = buisness_profile.account_id) inner join generic_account on(buisness_profile.account_id = generic_account.account_id);
 END //
 -- call to get all user messages
 CREATE PROCEDURE displayMessages(IN email2 char(50))
 BEGIN
 	WITH t1 as (SELECT email, generic_account.full_name as sender, generic_account.account_id as account_id from generic_account)
-    SELECT send_at, sender, generic_account.full_name as receiver, subjectName
+    SELECT send_at, sender, generic_account.full_name as receiver, subjectName, body
     from message inner join generic_account on(message.receiver = generic_account.account_id) inner join t1 on(t1.account_id = sender)
     where t1.email like email2 or generic_account.email like email2;
 END //
@@ -67,18 +67,17 @@ BEGIN
     end //
 	
     -- call to reschedule booking
-    CREATE PROCEDURE rescheduleBooking(IN email2 char(50), IN myservice_id int, IN curstartTime timestamp, IN wantstartTime timestamp)
+    CREATE PROCEDURE rescheduleBooking(IN myappointment_id int, IN wantstartTime timestamp)
 	BEGIN
 	DECLARE myId int default 0;
     DECLARE myCancel int default 0;
     DECLARE myendTime timestamp;
     
-    set myID = (SELECT account_id from generic_Account where email like email2);
-    set myCancel = (SELECT cancel_window_min from appointment where account_id = myID and myservice_id = service_id and startTime = curstartTime);
-	if myCancel<(TIMESTAMPDIFF(MINUTE, NOW(), curstartTime)) then
+    set myCancel = (SELECT cancel_window_min from appointment where account_id = myappointment_Id);
+	if myCancel<(TIMESTAMPDIFF(MINUTE, NOW(), (SELECT startTime from appointment where account_id = myappointment_Id))) then
 		update appointment
-		set startTime = wantStartTime, endTime = DATE_ADD(wantstartTime, INTERVAL (SELECT duration_min from service where service_id = myservice_id) MINUTE)
-		where account_id = myID and myservice_id = service_id and startTime = curstartTime;
+		set startTime = wantStartTime, endTime = DATE_ADD(wantstartTime, INTERVAL (SELECT duration_min from service inner join appointment using(service_id) where myappointment_id = appt_id) MINUTE)
+		where appt_id = myappointment_id;
 	else
 			SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Select a time when the buisness is open';

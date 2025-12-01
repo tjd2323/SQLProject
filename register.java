@@ -16,7 +16,7 @@ public class register extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 	String password = request.getParameter("password");
-	String confrimPassword = request.getParameter("confirm_password");
+	String confirmPassword = request.getParameter("confirm_password");
 	String address = request.getParameter("address");
 	String city = request.getParameter("city");
 	String country = request.getParameter("country");

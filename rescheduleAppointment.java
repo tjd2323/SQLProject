@@ -12,23 +12,21 @@ import java.time.format.DateTimeParseException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-@WebServlet("/createAppointment")
-public class createAppointment extends HttpServlet {
+@WebServlet("/rescheduleAppointment")
+public class rescheduleAppointment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String serveId = request.getParameter("book_service_id");
-        String email = request.getParameter("email");
-        String bookdate = request.getParameter("book_date");
-	String booktime = request.getParameter("book_time");
-	String booknote = request.getParameter("book_note");
+        String appointmentId = request.getParameter("appointment_id");
+	int apptId = int(appointmentId);
+        String bookdate = request.getParameter("new_date");
+	String booktime = request.getParameter("new_time");
 	String dateTimecomb = bookdate + " " + booktime;
  	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a");
 	LocalDateTime localDateTime = LocalDateTime.parse(dateTimecomb, formatter);
         // Convert LocalDateTime to java.sql.Timestamp
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
-	int serviceId = int(serveId);
 
 
 // JDBC driver name and database URL
@@ -46,13 +44,11 @@ System.out.println("Connecting to database...");
 conn = DriverManager.getConnection(DB_URL,USER,PASS);
 //STEP 4: Execute a query
 System.out.println("Creating statement...");
-cstmt = conn.prepareCall("{CALL get_employee_details(?, ?, ?, ?)}");
+cstmt = conn.prepareCall("{CALL rescheduleBooking(?, ?)}");
 
 // Set IN parameters
-cstmt.setString(1, email); // dept_id
-cstmt.setInt(2, serviceId); // min_salary
-cstmt.setTimestamp(3, timestamp); // dept_id
-cstmt.setString(4, booknote); // min_salary
+cstmt.setInt(1, apptId); // dept_id
+cstmt.setTimestamp(2, timestamp); // min_salary
 // Execute stored procedure
 boolean hasResultSet = cstmt.execute();
 //STEP 6: Clean‐up environment
