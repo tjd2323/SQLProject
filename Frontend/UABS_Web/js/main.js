@@ -1,4 +1,4 @@
-
+// Main JavaScript for UABS front-end
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("UABS front-end loaded.");
@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const businessDescInput = document.getElementById("business_description");
   const purposeInput = document.getElementById("purpose");
 
-  // ---------- Account type handling (registration + login) ----------
+  // ============================================================
+  // ACCOUNT TYPE HANDLING (Registration + Login screens)
+  // ============================================================
   if (accountTypeSelect) {
     const handleAccountTypeChange = () => {
       const value = accountTypeSelect.value;
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (businessDescInput) businessDescInput.required = false;
       if (purposeInput) purposeInput.required = false;
 
-      // Show fields only for registration page (where those sections exist)
+      // Show fields only for registration (where those sections exist)
       if (value === "B" && businessFields) {
         businessFields.classList.remove("hidden");
         if (businessNameInput) businessNameInput.required = true;
@@ -35,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Pre-select type from URL parameter (for login links like login.html?type=B)
+    // Pre-select type from URL parameter (for links like login.html?type=B)
     const params = new URLSearchParams(window.location.search);
     const urlType = params.get("type");
     if (urlType) {
@@ -83,6 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const openCreateAppointment = (row) => {
     if (!row || !createAppointmentPanel || !createAppointmentForm) return;
 
+    // Reset first so we do NOT wipe out the service id after setting it
+    createAppointmentForm.reset(); // clear date/time/note
+
     const serviceId = row.getAttribute("data-service-id") || "";
     const cells = row.children;
     // Columns: 0 = Business, 1 = Service, 2 = Price, 3 = Duration
@@ -96,8 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (bookServiceIdInput) bookServiceIdInput.value = serviceId;
     if (bookServiceSummary) bookServiceSummary.textContent = summary;
 
-    createAppointmentForm.reset(); // clear date/time/note
-    // keep summary text
     createAppointmentPanel.classList.remove("hidden");
     createAppointmentPanel.scrollIntoView({
       behavior: "smooth",
@@ -123,6 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // NOTE: Right now we keep this as a demo (alert). When backend is ready,
+  // we can remove preventDefault() and let the form submit to a servlet.
   if (createAppointmentForm) {
     createAppointmentForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -135,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // In a real app, this would send the booking request to the backend
       alert("Appointment booking request submitted (demo).");
       closeCreateAppointment();
     });
@@ -190,7 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
       serviceFormTitle.textContent = "Add New Service";
       serviceForm.reset();
       if (svcCategoryInput) svcCategoryInput.value = "";
-      document.getElementById("svc_status").value = "Active";
+      const statusSelect = document.getElementById("svc_status");
+      if (statusSelect) statusSelect.value = "Active";
     } else if (mode === "edit" && row) {
       serviceFormTitle.textContent = "Edit Service";
       const cells = row.children;
@@ -204,8 +209,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .trim();
       document.getElementById("svc_duration").value =
         cells[3].textContent.trim();
-      document.getElementById("svc_status").value =
-        cells[4].textContent.trim() || "Active";
+      const statusSelect = document.getElementById("svc_status");
+      if (statusSelect) {
+        statusSelect.value = cells[4].textContent.trim() || "Active";
+      }
     }
 
     serviceFormPanel.classList.remove("hidden");
@@ -246,7 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const category = svcCategoryInput ? svcCategoryInput.value.trim() : "";
       const price = document.getElementById("svc_price").value.trim();
       const duration = document.getElementById("svc_duration").value.trim();
-      const status = document.getElementById("svc_status").value;
+      const statusSelect = document.getElementById("svc_status");
+      const status = statusSelect ? statusSelect.value : "Active";
 
       if (!name || !category || !price || !duration || !status) {
         alert("Please fill in all required fields (including category).");
@@ -403,7 +411,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // ============================================================
   // DATA BROKER – REPORT FILTERS
   // ============================================================
-
   const reportsTable = document.getElementById("businessReportsTable");
   const btnApplyReportFilters = document.getElementById(
     "btnApplyReportFilters"
@@ -500,9 +507,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ============================================================
-  // USER – RESCHEDULE APPOINTMENT
+  // USER – RESCHEDULE APPOINTMENT (demo UI)
   // ============================================================
-
   const appointmentsTable = document.getElementById("appointmentsTable");
   const rescheduleFormPanel = document.getElementById("rescheduleFormPanel");
   const rescheduleForm = document.getElementById("rescheduleForm");
@@ -570,7 +576,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // In real app, send request to backend here
       alert("Reschedule request submitted (demo).");
       closeRescheduleForm();
     });
@@ -583,12 +588,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ============================================================
   // MESSAGES – SEND + VIEW DETAILS (User/Business/DataBroker/Admin)
   // ============================================================
-
   const messageForm = document.getElementById("messageForm");
   const messagesTable = document.getElementById("messagesTable");
   const detailPanel = document.getElementById("messageDetailPanel");
 
-  // Send message (demo)
+  // Send message (front-end demo only)
   if (messageForm && messagesTable) {
     messageForm.addEventListener("submit", (event) => {
       event.preventDefault();

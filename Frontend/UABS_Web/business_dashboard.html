@@ -397,7 +397,6 @@
       </section>
 
       <!-- Messages -->
-            <!-- Messages -->
       <section class="card">
         <h2>Messages</h2>
         <p class="hint">
@@ -451,7 +450,12 @@
         <!-- Send new message -->
         <div class="card-subsection">
           <h3>Send a New Message</h3>
-          <form id="messageForm" class="form-layout">
+          <form
+            id="messageForm"
+            class="form-layout"
+            method="post"
+            action="businessMessages"
+          >
             <div class="form-grid-2col">
               <div class="form-group">
                 <label for="msg_recipient">
@@ -497,7 +501,6 @@
           </form>
         </div>
       </section>
-
     </main>
 
     <footer class="main-footer">
