@@ -6,15 +6,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.*;
-@WebServlet("/login")
-public class login extends HttpServlet {
+@WebServlet("/messages")
+public class messages extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String email = request.getParameter("email");
-	String password = request.getParameter("password");
-	String accountType = request.getParameter("account_type");
+        String receiverEmail = request.getParameter("msg_recipient");
+        String subject = request.getParameter("msg_subject");
+        String body = request.getParameter("msg_body");
+	String email = request.getParameter("email"); // needs to be gotten from local memeory and passed in form
 
 
 // JDBC driver name and database URL
@@ -32,66 +33,17 @@ System.out.println("Connecting to database...");
 conn = DriverManager.getConnection(DB_URL,USER,PASS);
 //STEP 4: Execute a query
 System.out.println("Creating statement...");
-cstmt = conn.prepareCall("{CALL verify_Login(?, ?, ?, ?)}");
-// Set IN parameters
-cstmt.setString(1, email);
-cstmt.setSting(2, password);
-cstmt.setSting(3, accountType);
+cstmt = conn.prepareCall("{CALL sendMessages(?, ?, ?, ?)}");
 
-// Register OUT parameters
-cstmt.registerOutParameter(4, Types.INTEGER); 
+// Set IN parameters
+cstmt.setString(1, email); 
+cstmt.setString(2, receiverEmail);
+cstmt.setString(3, body); 
+cstmt.setString(4, subject);
+
 
 // Execute stored procedure
 boolean hasResultSet = cstmt.execute();
-//STEP 5: Extract data from result set
-int success = cstmt.getInt(4);
-
-if success == 0
-{
-// do nothing
-}
-else
-{
-
- try (PrintWriter out = response.getWriter()) {
-    out.println("<script>");
-    out.println("	function saveAndGo() {");
-    out.println("	const email = " + email + ";");
-    out.println("	localStorage.setItem('email', email);");
-    
-    
-    // need to redirect before finishing this
-
-
-        
-if accountType = "A"
-{
-    out.println("	window.location.href = 'admin_dashboard.html';");
-        
-}
-
-
-else if accountType = "B"
-{
- out.println("	window.location.href = 'business_dashboard.html';");
-
-}
-
-else if accountType = "C"
-{
-out.println("	window.location.href = 'user_dashboard.html';");
-
-}
-else
-{
- out.println("	window.location.href = 'databroker_dashboard.html';");
-
-}
-    out.println("	}");
-    out.println("</script>");
-}
-
-}
 //STEP 6: Clean‐up environment
 rs.close();
 cstmt.close();
