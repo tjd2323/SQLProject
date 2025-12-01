@@ -162,7 +162,7 @@
           View system messages and send messages to users, businesses, or data brokers.
         </p>
 
-        <!-- Messages table (empty placeholder as requested) -->
+        <!-- Messages table (no status column) -->
         <table class="uabs-table" id="messagesTable">
           <thead>
             <tr>
@@ -170,7 +170,6 @@
               <th>From</th>
               <th>To</th>
               <th>Subject</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -195,7 +194,12 @@
         <!-- Send new message -->
         <div class="card-subsection">
           <h3>Send a New Message</h3>
-          <form id="messageForm" class="form-layout">
+          <form
+            id="messageForm"
+            class="form-layout"
+            method="post"
+            action="adminMessages"
+          >
             <div class="form-grid-2col">
               <div class="form-group">
                 <label for="msg_recipient">

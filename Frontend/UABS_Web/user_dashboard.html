@@ -105,7 +105,11 @@
                 Choose a date and time for this service. This will send a booking request to the business.
             </p>
 
-            <form id="createAppointmentForm" class="form-layout">
+            <!-- now posts to createAppointment servlet -->
+            <form id="createAppointmentForm"
+                  class="form-layout"
+                  method="post"
+                  action="createAppointment">
                 <!-- In a real app, this would be a service_id -->
                 <input type="hidden" id="book_service_id" name="book_service_id">
 
@@ -208,7 +212,11 @@
                 review and approve or reject the request.
             </p>
 
-            <form id="rescheduleForm" class="form-layout">
+            <!-- now posts to requestReschedule servlet -->
+            <form id="rescheduleForm"
+                  class="form-layout"
+                  method="post"
+                  action="requestReschedule">
                 <input type="hidden" id="resched_appt_id" name="resched_appt_id">
 
                 <div class="form-grid-2col">
@@ -256,7 +264,6 @@
               <th>From</th>
               <th>To</th>
               <th>Subject</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -271,7 +278,6 @@
                   Appointment confirmed
                 </button>
               </td>
-              <td>Read</td>
             </tr>
 
             <tr>
@@ -285,7 +291,6 @@
                   Reschedule request
                 </button>
               </td>
-              <td>Pending</td>
             </tr>
           </tbody>
         </table>
@@ -305,7 +310,11 @@
 
         <div class="card-subsection">
             <h3>Send a New Message</h3>
-            <form id="messageForm" class="form-layout">
+            <!-- now posts to userMessages servlet -->
+            <form id="messageForm"
+                  class="form-layout"
+                  method="post"
+                  action="userMessages">
                 <div class="form-grid-2col">
                     <div class="form-group">
                         <label for="msg_recipient">

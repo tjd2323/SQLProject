@@ -21,7 +21,11 @@
     <section class="card card-wide">
         <h2>Create Your Account</h2>
 
-        <form id="registrationForm" class="form-layout" action="#" method="post">
+        <!-- Now wired to backend servlet -->
+        <form id="registrationForm"
+              class="form-layout"
+              method="post"
+              action="register">
             <!-- Basic account info -->
             <div class="form-grid-2col">
                 <div class="form-group">
@@ -78,7 +82,7 @@
                     <label for="country">
                         Country <span class="required-star">*</span>
                     </label>
-                    <input type="text" id="country" name="country" required value="USA">
+                    <input type="text" id="country" name="country" required value="">
                 </div>
             </div>
 

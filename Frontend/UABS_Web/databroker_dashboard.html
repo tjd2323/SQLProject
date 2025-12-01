@@ -58,8 +58,11 @@
     <section class="card">
         <h2>Business Reports</h2>
 
-        <!-- Filter form -->
-        <form class="filter-form" action="#" method="get" id="reportFilterForm">
+        <!-- Filter form (wired to dataBrokerReports servlet) -->
+        <form class="filter-form"
+              action="dataBrokerReports"
+              method="get"
+              id="reportFilterForm">
             <div class="form-group">
                 <label for="filter_business">Category</label>
                 <input type="text" id="filter_business" name="filter_business"
@@ -94,7 +97,7 @@
             </div>
 
             <div class="filter-actions">
-                <!-- type="button" so the page does NOT reload -->
+                <!-- type="button" so the page does NOT reload; JS will handle demo filtering -->
                 <button type="button"
                         id="btnApplyReportFilters"
                         class="btn btn-small btn-accent">
@@ -162,7 +165,6 @@
                 <th>From</th>
                 <th>To</th>
                 <th>Subject</th>
-                <th>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -179,7 +181,6 @@
                         Data access request received
                     </button>
                 </td>
-                <td>Read</td>
             </tr>
             </tbody>
         </table>
@@ -201,7 +202,10 @@
         <!-- Send new message -->
         <div class="card-subsection">
             <h3>Send a New Message</h3>
-            <form id="messageForm" class="form-layout">
+            <form id="messageForm"
+                  class="form-layout"
+                  method="post"
+                  action="dataBrokerMessages">
                 <div class="form-grid-2col">
                     <div class="form-group">
                         <label for="msg_recipient">

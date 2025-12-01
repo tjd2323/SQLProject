@@ -46,60 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     accountTypeSelect.addEventListener("change", handleAccountTypeChange);
   }
 
-  // Helper to decide which dashboard to go to
-  const redirectToDashboard = (type, message) => {
-    let targetPage = "index.html";
-
-    switch (type) {
-      case "C":
-        targetPage = "user_dashboard.html";
-        break;
-      case "B":
-        targetPage = "business_dashboard.html";
-        break;
-      case "D":
-        targetPage = "databroker_dashboard.html";
-        break;
-      case "A":
-        targetPage = "admin_dashboard.html";
-        break;
-    }
-
-    if (!type) {
-      alert("Please select an account type.");
-      return;
-    }
-
-    alert(message);
-    window.location.href = targetPage;
-  };
-
-  // ---------- Registration form demo submit ----------
-  const registrationForm = document.getElementById("registrationForm");
-  if (registrationForm && accountTypeSelect) {
-    registrationForm.addEventListener("submit", (event) => {
-      event.preventDefault(); // demo only
-      const type = accountTypeSelect.value;
-      redirectToDashboard(
-        type,
-        "Registration successful! Redirecting you to your dashboard (demo)."
-      );
-    });
-  }
-
-  // ---------- Login form demo submit ----------
-  const loginForm = document.getElementById("loginForm");
-  if (loginForm && accountTypeSelect) {
-    loginForm.addEventListener("submit", (event) => {
-      event.preventDefault(); // demo only
-      const type = accountTypeSelect.value;
-      redirectToDashboard(
-        type,
-        "Login successful! Redirecting you to your dashboard (demo)."
-      );
-    });
-  }
-
   // ============================================================
   // USER DASHBOARD – BROWSE SERVICES + BOOK APPOINTMENT
   // ============================================================
@@ -297,9 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
 
       const name = document.getElementById("svc_name").value.trim();
-      const category = svcCategoryInput
-        ? svcCategoryInput.value.trim()
-        : "";
+      const category = svcCategoryInput ? svcCategoryInput.value.trim() : "";
       const price = document.getElementById("svc_price").value.trim();
       const duration = document.getElementById("svc_duration").value.trim();
       const status = document.getElementById("svc_status").value;
@@ -491,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cells = row.children;
 
     const firstCol = cells[0].textContent.toLowerCase(); // Category
-    const city = cells[1].textContent.toLowerCase();
+       const city = cells[1].textContent.toLowerCase();
     const country = cells[2].textContent.toLowerCase();
     const periodText = cells[3].textContent.trim();
     const totalApptsText = cells[4].textContent.trim();
@@ -637,14 +581,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ============================================================
-  // MESSAGES – SEND + VIEW DETAILS (User/others where present)
+  // MESSAGES – SEND + VIEW DETAILS (User/Business/DataBroker/Admin)
   // ============================================================
 
   const messageForm = document.getElementById("messageForm");
   const messagesTable = document.getElementById("messagesTable");
   const detailPanel = document.getElementById("messageDetailPanel");
 
-  // Send message (demo)
+  // Send message (demo, front-end only)
   if (messageForm && messagesTable) {
     messageForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -661,6 +605,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const tbody = messagesTable.querySelector("tbody");
       const now = new Date().toISOString().slice(0, 10); // yyyy-mm-dd
 
+      const safeBody = body.replace(/"/g, "&quot;");
+
       const newRow = document.createElement("tr");
       newRow.innerHTML = `
         <td>${now}</td>
@@ -669,11 +615,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>
           <button type="button"
                   class="link-button msg-subject"
-                  data-body="${body.replace(/"/g, "&quot;")}">
+                  data-body="${safeBody}">
             ${subject}
           </button>
         </td>
-        <td>Sent</td>
       `;
       tbody.appendChild(newRow);
 
