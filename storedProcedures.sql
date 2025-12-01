@@ -54,32 +54,26 @@ BEGIN
     where t1.email like email2 or generic_account.email like email2;
 END //
 -- call to create booking
-CREATE PROCEDURE createBooking(IN email2 char(50), IN Buisness char(50), IN serviceN char(200), IN mystartTime timestamp, in mynote varchar(3000))
+CREATE PROCEDURE createBooking(IN email2 char(50), IN myservice_id int, IN mystartTime timestamp, in mynote varchar(3000))
 BEGIN
 
 	DECLARE myId int default 0;
-    DECLARE myservice_id int default 0;
     DECLARE myCancel int default 0;
     DECLARE myendTime timestamp;
     set myID = (SELECT account_id from generic_Account where email like email2);
-    set myservice_id = (SELECT service_id from service inner join buisness_profile using(account_id) inner join generic_account using(account_id)
-    where Buisness like generic_account.full_name and serviceN like service.Full_Name);
     set myCancel = (SELECT buffer_min from service where service_id = myservice_id);
     set myendTime = DATE_ADD(mystartTime, INTERVAL (SELECT duration_min from service where service_id = myservice_id) MINUTE);
 	insert into appointment(account_id, service_id, notes, appt_status, no_show, startTime, endTime, cancel_window) values (myId, myservice_id, mynote, 'scheduled', false, mystartTime, myendTime, myCancel);
     end //
 	
     -- call to reschedule booking
-    CREATE PROCEDURE rescheduleBooking(IN email2 char(50), IN Buisness char(50), IN serviceN char(200), IN curstartTime timestamp, IN wantstartTime timestamp)
+    CREATE PROCEDURE rescheduleBooking(IN email2 char(50), IN myservice_id int, IN curstartTime timestamp, IN wantstartTime timestamp)
 	BEGIN
 	DECLARE myId int default 0;
-    DECLARE myservice_id int default 0;
     DECLARE myCancel int default 0;
     DECLARE myendTime timestamp;
     
     set myID = (SELECT account_id from generic_Account where email like email2);
-    set myservice_id = (SELECT service_id from service inner join buisness_profile using(account_id) inner join generic_account using(account_id)
-    where Buisness like generic_account.full_name and serviceN like service.Full_Name);
     set myCancel = (SELECT cancel_window_min from appointment where account_id = myID and myservice_id = service_id and startTime = curstartTime);
 	if myCancel<(TIMESTAMPDIFF(MINUTE, NOW(), curstartTime)) then
 		update appointment
@@ -91,15 +85,12 @@ BEGIN
 	end if;
     end //
     -- call to cancel booking
-    CREATE PROCEDURE CancelBookingRequest(IN email2 char(50), IN Buisness char(50), IN serviceN char(200), IN curstartTime timestamp)
+    CREATE PROCEDURE CancelBookingRequest(IN email2 char(50), IN myservice_id int, IN curstartTime timestamp)
     BEGIN
     DECLARE myId int default 0;
-    DECLARE myservice_id int default 0;
     DECLARE myCancel int default 0;
     
     set myID = (SELECT account_id from generic_Account where email like email2);
-    set myservice_id = (SELECT service_id from service inner join buisness_profile using(account_id) inner join generic_account using(account_id)
-    where Buisness like generic_account.full_name and serviceN like service.Full_Name);
     set myCancel = (SELECT cancel_window_min from appointment where account_id = myID and myservice_id = service_id and startTime = curstartTime);
     if myCancel<(TIMESTAMPDIFF(MINUTE, NOW(), curstartTime)) then
     insert into message(sender, receiver, body, send_at) values (myID, (select account_id from service inner join buisness_profile using(account_id)), 'Requesting cancelation of appointment', now());
