@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UABS - Registration</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="main-header">
+    <h1>Universal Appointment Booking System (UABS)</h1>
+    <p class="tagline">Register a new account</p>
+</header>
+
+<nav class="top-nav">
+    <a href="index.html">Home</a>
+    <span class="nav-label">Registration</span>
+</nav>
+
+<main class="page-container">
+    <!-- wider card -->
+    <section class="card card-wide">
+        <h2>Create Your Account</h2>
+
+        <!-- Now wired to backend servlet -->
+        <form id="registrationForm"
+              class="form-layout"
+              method="post"
+              action="register">
+            <!-- Basic account info -->
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    <label for="full_name">
+                        Full Name / Organization Name <span class="required-star">*</span>
+                    </label>
+                    <input type="text" id="full_name" name="full_name" required
+                           placeholder="e.g., John Doe or OSU Dental Care">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        Email <span class="required-star">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" required
+                           placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone"
+                           placeholder="+1 (555) 123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        Password <span class="required-star">*</span>
+                    </label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">
+                        Confirm Password <span class="required-star">*</span>
+                    </label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+            </div>
+
+            <!-- Address -->
+            <div class="form-grid-2col form-section">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address"
+                           placeholder="Street address">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city">
+                </div>
+
+                <div class="form-group">
+                    <label for="country">
+                        Country <span class="required-star">*</span>
+                    </label>
+                    <input type="text" id="country" name="country" required value="">
+                </div>
+            </div>
+
+            <!-- Account type -->
+            <div class="form-grid-2col form-section">
+                <div class="form-group">
+                    <label for="account_type">
+                        Account Type <span class="required-star">*</span>
+                    </label>
+                    <select id="account_type" name="account_type" required>
+                        <option value="">-- Select type --</option>
+                        <option value="C">Customer</option>
+                        <option value="B">Business</option>
+                        <option value="D">Data Broker</option>
+                        <!-- Admin accounts created separately -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Business-specific fields -->
+            <div id="businessFields" class="card-subsection hidden">
+                <h3>Business Details</h3>
+
+                <div class="form-group">
+                    <label for="business_description">
+                        Business Description <span class="required-star">*</span>
+                    </label>
+                    <textarea id="business_description" name="business_description"
+                              rows="3"
+                              placeholder="Describe the services your business provides."></textarea>
+                </div>
+            </div>
+
+            <!-- Data broker-specific fields -->
+            <div id="dataBrokerFields" class="card-subsection hidden">
+                <h3>Data Broker Details</h3>
+
+                <div class="form-group">
+                    <label for="purpose">
+                        Purpose of Data Access <span class="required-star">*</span>
+                    </label>
+                    <textarea id="purpose" name="purpose" rows="3"
+                              placeholder="Analyze trends, generate market reports, etc."></textarea>
+                </div>
+            </div>
+
+            <!-- Form actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-accent">Register</button>
+                <a href="index.html" class="btn btn-outline">Back to Home</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer class="main-footer">
+    <p>&copy; 2025 UABS Project</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
