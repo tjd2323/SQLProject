@@ -1,4 +1,4 @@
-// Main JavaScript for UABS front-end
+
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("UABS front-end loaded.");
@@ -435,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cells = row.children;
 
     const firstCol = cells[0].textContent.toLowerCase(); // Category
-       const city = cells[1].textContent.toLowerCase();
+    const city = cells[1].textContent.toLowerCase();
     const country = cells[2].textContent.toLowerCase();
     const periodText = cells[3].textContent.trim();
     const totalApptsText = cells[4].textContent.trim();
@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ============================================================
-  // USER – RESCHEDULE APPOINTMENT (demo UI only)
+  // USER – RESCHEDULE APPOINTMENT
   // ============================================================
 
   const appointmentsTable = document.getElementById("appointmentsTable");
@@ -588,7 +588,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const messagesTable = document.getElementById("messagesTable");
   const detailPanel = document.getElementById("messageDetailPanel");
 
-  // Send message (demo, front-end only)
+  // Send message (demo)
   if (messageForm && messagesTable) {
     messageForm.addEventListener("submit", (event) => {
       event.preventDefault();
